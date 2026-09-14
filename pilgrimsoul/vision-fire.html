@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vision Fire — Pilgrim Soul</title>
+  <meta name="description" content="A living channel of film, thought, and discovery. 120 curated documentaries, key thinkers, and the freshest transmissions from the edge.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.18);
+      --cream: #F5EFE4; --cream-dim: rgba(245,239,228,0.75); --cream-faint: rgba(245,239,228,0.3);
+      --dark: #0E0D0B; --dark-mid: #1A1915; --dark-warm: #221F1A; --dark-lift: #2C2820;
+      --text-body: #C8BFA8; --text-muted: #7A7368; --text-faint: #4A4640;
+      --border: rgba(201,168,76,0.12); --border-soft: rgba(201,168,76,0.22);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 1.1rem 3rem; display: flex; justify-content: space-between; align-items: center; background: #1A1915; border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 0.28em; color: var(--gold); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--cream); }
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(8,7,6,0.95); align-items: center; justify-content: center; padding: 2rem; }
+    .modal-overlay.open { display: flex; animation: mFade 0.22s ease; }
+    @keyframes mFade { from { opacity:0; } to { opacity:1; } }
+    .modal-inner { position: relative; width: 100%; max-width: 900px; animation: mSlide 0.28s ease; }
+    @keyframes mSlide { from { transform:translateY(20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+    .modal-close { position: absolute; top: -2.6rem; right: 0; font-family: 'Cinzel', serif; font-size: 0.63rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; }
+    .modal-close:hover { color: var(--gold); }
+    .modal-x { width: 16px; height: 16px; position: relative; border: 1px solid currentColor; border-radius: 50%; flex-shrink: 0; }
+    .modal-x::before, .modal-x::after { content:''; position:absolute; width:7px; height:1px; background:currentColor; top:50%; left:50%; }
+    .modal-x::before { transform:translate(-50%,-50%) rotate(45deg); }
+    .modal-x::after  { transform:translate(-50%,-50%) rotate(-45deg); }
+    .modal-player { position: relative; padding-bottom: 56.25%; height: 0; background: #000; border: 1px solid var(--border); }
+    .modal-player iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:none; }
+    .modal-meta { padding: 0.9rem 0 0; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .modal-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.08rem; color: var(--cream); line-height: 1.4; flex: 1; }
+    .modal-cat { font-family: 'Cinzel', serif; font-size: 0.57rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); opacity: 0.65; padding-top: 4px; flex-shrink: 0; }
+    .page-header { position: relative; overflow: hidden; min-height: 520px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12rem 3rem 7rem; border-bottom: 1px solid var(--border); }
+    .page-header-bg { position: absolute; inset: 0; background: url('images/vision-fire-header.png') center/cover no-repeat; transform: scale(1.04); animation: slowdrift 22s ease-in-out infinite alternate; }
+    .page-header-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(14,13,11,0.5) 0%, rgba(14,13,11,0.2) 30%, rgba(14,13,11,0.55) 65%, rgba(14,13,11,1) 100%); }
+    @keyframes slowdrift { from { transform: scale(1.04) translateY(0); } to { transform: scale(1.07) translateY(-1.2%); } }
+    .page-header > *:not(.page-header-bg):not(.page-header-overlay) { position: relative; z-index: 2; }
+    .page-eyebrow { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.8rem,7vw,5.5rem); line-height: 1.05; color: var(--cream); margin-bottom: 1.5rem; }
+    .page-title em { font-style: italic; color: var(--gold-light); }
+    .gold-rule { width: 40px; height: 1px; background: var(--gold); margin: 0 auto 1.75rem; opacity: 0.45; }
+    .page-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(1rem,2.2vw,1.25rem); color: var(--text-body); line-height: 1.85; max-width: 640px; margin: 0 auto; }
+    .channel-nav { position: sticky; top: 62px; z-index: 100; background: var(--dark-mid); border-bottom: 1px solid var(--border); display: flex; overflow-x: auto; scrollbar-width: none; }
+    .channel-nav::-webkit-scrollbar { display: none; }
+    .channel-tab { flex-shrink: 0; padding: 1rem 1.75rem; font-family: 'Cinzel', serif; font-size: 0.67rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); border: none; border-bottom: 2px solid transparent; background: none; cursor: pointer; transition: color 0.25s, border-color 0.25s; }
+    .channel-tab:hover { color: var(--cream-dim); }
+    .channel-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .channel-section { display: none; }
+    .channel-section.active { display: block; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 2.5rem; }
+    .section-inner { padding: 4rem 0 5rem; }
+    .section-label-sm { font-family: 'Cinzel', serif; font-size: 0.63rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
+    .section-heading { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.6rem,3.5vw,2.6rem); color: var(--cream); margin-bottom: 0.85rem; line-height: 1.2; }
+    .section-heading em { font-style: italic; color: var(--gold-light); }
+    .section-body { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.9rem; color: var(--text-body); line-height: 1.85; max-width: 680px; }
+    .section-intro { margin-bottom: 2.5rem; }
+    .film-cats { display: flex; flex-direction: column; gap: 5px; }
+    .film-cat-btn { width: 100%; text-align: left; background: var(--dark-mid); border: 1px solid var(--border); border-radius: 3px; padding: 1.1rem 1.4rem; cursor: pointer; display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; transition: border-color 0.25s, background 0.25s; }
+    .film-cat-btn:hover { border-color: var(--border-soft); background: var(--dark-warm); }
+    .film-cat-btn.open { border-color: rgba(201,168,76,0.3); background: var(--dark-warm); }
+    .cat-left { flex: 1; }
+    .cat-title { font-family: 'Cinzel', serif; font-size: 0.76rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin-bottom: 0.3rem; }
+    .cat-desc { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 0.5rem; }
+    .cat-tag { display: inline-block; font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 2px 9px; border-radius: 20px; }
+    .tag-sacred { background:rgba(29,158,117,0.1); color:#5DCAA5; border:1px solid rgba(29,158,117,0.22); }
+    .tag-inner  { background:rgba(83,74,183,0.1);  color:#AFA9EC; border:1px solid rgba(83,74,183,0.22); }
+    .tag-land   { background:rgba(186,117,23,0.1); color:#EF9F27; border:1px solid rgba(186,117,23,0.22); }
+    .tag-road   { background:rgba(163,45,45,0.1);  color:#F09595; border:1px solid rgba(163,45,45,0.22); }
+    .tag-myth   { background:rgba(153,53,86,0.1);  color:#ED93B1; border:1px solid rgba(153,53,86,0.22); }
+    .tag-world  { background:rgba(24,95,165,0.1);  color:#85B7EB; border:1px solid rgba(24,95,165,0.22); }
+    .tag-nature { background:rgba(99,153,34,0.1);  color:#97C459; border:1px solid rgba(99,153,34,0.22); }
+    .cat-chev { font-size: 0.68rem; color: var(--text-muted); flex-shrink: 0; margin-top: 4px; transition: transform 0.2s; }
+    .cat-chev.open { transform: rotate(180deg); }
+    .film-panel { display: none; background: var(--dark-lift); border: 1px solid var(--border); border-top: none; border-radius: 0 0 3px 3px; padding: 1.1rem 1.4rem; margin-top: -5px; }
+    .film-panel.open { display: block; }
+    .film-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 2px 1rem; }
+    .film-item { display: flex; align-items: baseline; gap: 7px; padding: 5px 0; border-bottom: 1px solid rgba(201,168,76,0.06); }
+    .film-item:last-child { border-bottom: none; }
+    .film-num { font-family: 'Cinzel', serif; font-size: 0.58rem; color: var(--text-faint); min-width: 16px; flex-shrink: 0; }
+    .film-btn { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.82rem; color: var(--text-body); background: none; border: none; cursor: pointer; text-align: left; line-height: 1.5; padding: 0; transition: color 0.2s; }
+    .film-btn:hover { color: var(--gold); }
+    .film-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: var(--text-faint); flex-shrink: 0; }
+    .thinkers-grid { display: flex; flex-direction: column; gap: 6px; }
+    .thinker-card { background: var(--dark-mid); border: 1px solid var(--border); border-radius: 3px; padding: 1.25rem 1.4rem; cursor: pointer; transition: border-color 0.25s, background 0.25s; }
+    .thinker-card:hover { border-color: var(--border-soft); }
+    .thinker-card.open { border-color: rgba(201,168,76,0.3); background: var(--dark-warm); }
+    .thinker-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .thinker-name { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cream); margin-bottom: 0.35rem; }
+    .thinker-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text-body); line-height: 1.6; }
+    .thinker-chev { font-size: 0.68rem; color: var(--text-muted); flex-shrink: 0; margin-top: 4px; transition: transform 0.2s; }
+    .thinker-chev.open { transform: rotate(180deg); }
+    .thinker-body { display: none; padding-top: 1rem; border-top: 1px solid var(--border); margin-top: 1rem; }
+    .thinker-body.open { display: block; }
+    .thinker-bio { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.87rem; color: var(--text-body); line-height: 1.85; margin-bottom: 1.1rem; }
+    .thinker-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0.5rem; }
+    .thinker-links { display: flex; flex-direction: column; gap: 4px; }
+    .thinker-link { display: flex; align-items: center; gap: 10px; padding: 6px 11px; background: var(--dark-lift); border: 1px solid var(--border); border-radius: 2px; text-decoration: none; transition: border-color 0.2s, background 0.2s; }
+    .thinker-link:hover { border-color: var(--border-soft); background: var(--dark-warm); }
+    .link-type { font-family: 'Cinzel', serif; font-size: 0.57rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); min-width: 58px; flex-shrink: 0; }
+    .link-label { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.82rem; color: var(--text-body); }
+    .fresh-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+    .fresh-card { background: var(--dark-mid); padding: 1.35rem 1.4rem; transition: background 0.2s; }
+    .fresh-card.has-video { cursor: pointer; }
+    .fresh-card.has-video:hover { background: var(--dark-warm); }
+    .fresh-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.55rem; }
+    .fresh-who { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+    .fresh-date { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.73rem; color: var(--text-faint); }
+    .fresh-title { font-family: 'Cormorant Garamond', serif; font-weight: 400; font-size: 1.04rem; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.4; }
+    .fresh-desc { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.8rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.85rem; }
+    .fresh-play { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); opacity: 0.75; }
+    .fresh-ext { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); opacity: 0.75; text-decoration: none; transition: opacity 0.2s; }
+    .fresh-ext:hover { opacity: 1; }
+    .suggest-box { margin-top: 3rem; background: var(--dark-mid); border: 1px solid var(--border); border-radius: 3px; padding: 2.25rem 2rem; text-align: center; }
+    .suggest-title { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.7rem; }
+    .suggest-body { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text-body); line-height: 1.7; margin-bottom: 1.25rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .suggest-link { display: inline-block; font-family: 'Cinzel', serif; font-size: 0.67rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dark); background: var(--gold); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; transition: background 0.25s; }
+    .suggest-link:hover { background: var(--gold-light); }
+    footer { border-top: 1px solid var(--border); padding: 3.5rem 2rem; background: var(--dark); }
+    .footer-inner { max-width: 1020px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+    .footer-logo { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold); opacity: 0.75; text-decoration: none; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; transition: color 0.25s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-faint); letter-spacing: 0.06em; }
+    .footer-address { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-faint); letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 900px) { .nav-links { gap: 1.4rem; } .nav-links a { font-size: 0.7rem; letter-spacing: 0.1em; } }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; position: fixed; inset: 0; background: rgba(14,13,11,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 99; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1rem; letter-spacing: 0.2em; }
+      .nav-toggle { display: flex; z-index: 101; }
+      .page-header { padding: 8rem 1.5rem 4rem; min-height: 420px; }
+      .container { padding: 0 1.5rem; }
+      .film-grid { grid-template-columns: 1fr; }
+      .fresh-grid { grid-template-columns: 1fr; }
+      .channel-tab { padding: 0.85rem 1.1rem; font-size: 0.6rem; }
+      .modal-overlay { padding: 1rem; align-items: flex-end; }
+      .modal-inner { max-width: 100%; }
+      .modal-close { top: -2.25rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+  <div class="modal-inner">
+    <button class="modal-close" id="modalClose" aria-label="Close video"><span class="modal-x"></span>Close</button>
+    <div class="modal-player">
+      <iframe id="modalFrame" src="" allowfullscreen allow="autoplay; encrypted-media" title="Vision Fire player"></iframe>
+    </div>
+    <div class="modal-meta">
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-cat" id="modalCat"></div>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Pilgrim Soul</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="dispatch.html">Dispatch</a></li>
+    <li><a href="sessions.html">Sessions</a></li>
+    <li><a href="havens.html">Havens</a></li>
+    <li><a href="vision-fire.html" class="active">Vision Fire</a></li>
+    <li><a href="forum.html">Forum</a></li>
+    <li><a href="links.html">Directory</a></li>
+    <li><a href="community.html">Community</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <div class="page-header-bg"></div>
+  <div class="page-header-overlay"></div>
+  <span class="page-eyebrow">A living channel</span>
+  <h1 class="page-title">The Vision <em>Fire</em></h1>
+  <div class="gold-rule"></div>
+  <p class="page-sub">The territory that feeds the work — film, thought, and the freshest transmissions from the edge. Click any title to watch here, without leaving this space. A rabbit hole for those who feel the pull.</p>
+</header>
+
+<nav class="channel-nav" id="channelNav" aria-label="Channel sections">
+  <button class="channel-tab active" data-target="films">The Film Library</button>
+  <button class="channel-tab" data-target="thinkers">Thinkers &amp; Voices</button>
+  <button class="channel-tab" data-target="fresh">Fresh Off The Press</button>
+</nav>
+
+<section class="channel-section active" id="films">
+  <div class="container"><div class="section-inner">
+    <div class="section-intro fade-in">
+      <span class="section-label-sm">120 films · 12 territories</span>
+      <h2 class="section-heading">The Film <em>Library</em></h2>
+      <p class="section-body">A curated channel, not an algorithm. Every film here was chosen because it carries something — a transmission, a question, a view of the world that opens rather than closes. Not a list. A landscape. Open a category. Click a title. It plays here, in this space.</p>
+    </div>
+    <div class="film-cats fade-in" id="filmCats"></div>
+  </div></div>
+</section>
+
+<section class="channel-section" id="thinkers">
+  <div class="container"><div class="section-inner">
+    <div class="section-intro fade-in">
+      <span class="section-label-sm">Key voices · living work</span>
+      <h2 class="section-heading">Thinkers <em>&amp; Voices</em></h2>
+      <p class="section-body">The people whose work feeds this territory — websites, channels, podcasts, and what they are making right now. Click any name to expand. Follow whoever calls to you.</p>
+    </div>
+    <div class="thinkers-grid fade-in" id="thinkersGrid"></div>
+  </div></div>
+</section>
+
+<section class="channel-section" id="fresh">
+  <div class="container"><div class="section-inner">
+    <div class="section-intro fade-in">
+      <span class="section-label-sm">Latest releases · new discoveries</span>
+      <h2 class="section-heading">Fresh Off <em>The Press</em></h2>
+      <p class="section-body">New documentaries, recent talks, breakthrough ideas, dispatches from the edge. Click any card with a play indicator to watch here. Updated when something genuinely worth sharing arrives.</p>
+    </div>
+    <div class="fresh-grid fade-in" id="freshGrid"></div>
+    <div class="suggest-box fade-in">
+      <div class="suggest-title">Found something that belongs here?</div>
+      <p class="suggest-body">This is a gathering place, not a closed library. Bring a film, a voice, a discovery — share it with the community.</p>
+      <a href="forum.html" class="suggest-link">Suggest a find →</a>
+    </div>
+  </div></div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">Pilgrim Soul</a>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="dispatch.html">Dispatch</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="havens.html">Havens</a></li>
+      <li><a href="vision-fire.html">Vision Fire</a></li>
+      <li><a href="forum.html">Forum</a></li>
+      <li><a href="links.html">Directory</a></li>
+    <li><a href="community.html">Community</a></li>
+    </ul>
+    <div>
+      <p class="footer-address">Paul Bennett · Studio 165644 · PO Box 7169 · Poole · BH15 9EL</p>
+      <p class="footer-address"><a href="mailto:paul@pilgrimsoul.net">paul@pilgrimsoul.net</a></p>
+      <p class="footer-copy">© 2026 Pilgrim Soul — pilgrimsoul.net</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function embedUrl(url) {
+  if (!url) return null;
+  var yt = url.match(/youtube\.com\/watch\?(?:.*&)?v=([\w-]+)/);
+  if (yt) return 'https://www.youtube.com/embed/' + yt[1] + '?autoplay=1&rel=0';
+  var yts = url.match(/youtu\.be\/([\w-]+)/);
+  if (yts) return 'https://www.youtube.com/embed/' + yts[1] + '?autoplay=1&rel=0';
+  var ypl = url.match(/youtube\.com\/.*[?&]list=([\w-]+)/);
+  if (ypl) return 'https://www.youtube.com/embed?listType=playlist&list=' + ypl[1] + '&autoplay=1';
+  var vi = url.match(/vimeo\.com\/(\d+)/);
+  if (vi) return 'https://player.vimeo.com/video/' + vi[1] + '?autoplay=1';
+  return null;
+}
+function openModal(url, title, cat) {
+  var e = embedUrl(url);
+  if (!e) { window.open(url, '_blank', 'noopener'); return; }
+  document.getElementById('modalFrame').src = e;
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalCat').textContent = cat || '';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('modalFrame').src = '';
+  document.body.style.overflow = '';
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOverlay').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+
+var cats = [
+  {title:'The inner fire',desc:'Consciousness, awakening, transmission. The closest film equivalents to what The Stilted Pilgrim is trying to do.',tag:'tag-inner',label:'Inner journey',films:[
+    {n:1,t:'Inner Worlds, Outer Worlds',u:'https://www.youtube.com/watch?v=aXuTt7c3Jkg',note:'Start here'},
+    {n:2,t:'Samadhi: Maya, the Illusion of the Self',u:'https://www.youtube.com/watch?v=Bw9zSMsKcwk'},
+    {n:3,t:'Awakening Mind: Know Thyself',u:'https://www.youtube.com/watch?v=uUZJea1UnS8'},
+    {n:4,t:'5 Gateways: Five Key Expansions of Consciousness',u:'https://www.youtube.com/watch?v=iqJRwAeZqQU'},
+    {n:5,t:'Kymatica',u:'https://www.youtube.com/watch?v=AanQ2mY2jjc'},
+    {n:6,t:'The Holographic Universe',u:'https://www.youtube.com/watch?v=lMBt_yfGKpU'},
+    {n:7,t:"Awake: It's Your Turn",u:'https://www.youtube.com/watch?v=gw7zpKQK7HY'},
+    {n:8,t:'The Quickening: Awakening As One',u:'https://www.youtube.com/watch?v=-bklGjrJuvg'},
+    {n:9,t:'Love, Reality, and the Time of Transition',u:'https://archive.org/details/LoveRealityAndTimeOfTransition'},
+    {n:10,t:'Beyond Thought (Awareness Itself)',u:'https://www.youtube.com/watch?v=IHcOvPtYE08'}
+  ]},
+  {title:'Sacred Britain — the land beneath the land',desc:'Ancient sites, ley lines, the hidden history of these islands. Direct fuel for the road and the research.',tag:'tag-sacred',label:'Book II / The Road',films:[
+    {n:1,t:'Graham Hancock — Gobekli Tepe & Why It Matters',u:'https://www.youtube.com/watch?v=ti0NCNShQm4',note:'Official channel · Essential'},
+    {n:2,t:'Builders of the Ancient Mysteries',u:'https://www.youtube.com/watch?v=PI6VUM0IPSY'},
+    {n:3,t:'A History of Celtic Britain',u:'https://www.youtube.com/watch?v=uOaStDDogDY',note:'Your landscape'},
+    {n:4,t:'History of Britain: The Myth of the Anglo-Saxon Invasion',u:'https://www.youtube.com/watch?v=iejwIpAKPyg'},
+    {n:5,t:'The Missing Chapter of Human History',u:'https://www.youtube.com/watch?v=-JlsRQMfFJY'},
+    {n:6,t:'The Pyramid Code',u:'https://www.youtube.com/watch?v=v7z6rj5S538'},
+    {n:7,t:'Secrets in Plain Sight',u:'https://www.youtube.com/watch?v=kf1uZzZPQng'},
+    {n:8,t:'Alchemy: Sacred Secrets Revealed',u:'https://www.youtube.com/watch?v=DGyYIJpMC-k'},
+    {n:9,t:'The Most Ancient Country on Earth',u:'https://www.youtube.com/watch?v=9Xi0pRg7QfE'},
+    {n:10,t:'The Lost Advanced Technologies of Ancient Civilizations',u:'https://www.youtube.com/watch?v=w6go2zSGCXo'}
+  ]},
+  {title:'The old gods — religion, myth & the sacred feminine',desc:'The religions beneath the religions. The older knowing that never left.',tag:'tag-myth',label:'Myth & spirit',films:[
+    {n:1,t:'Entheogen: Awakening the Divine Within',u:'https://www.youtube.com/watch?v=fYqoTPUUTKk'},
+    {n:2,t:'Manifesting the Mind: Footprints of the Shaman',u:'https://www.youtube.com/watch?v=kj5D5sPqVAY'},
+    {n:3,t:'The Green Man: A Pagan God Hiding in Plain Sight?',u:'https://www.youtube.com/watch?v=9MBUFAMHozc'},
+    {n:4,t:'Shamans of the Amazon',u:'https://www.youtube.com/watch?v=rbs9mVtHIYQ'},
+    {n:5,t:'Secret Quest: The Path of the Christian Gnostics',u:'https://www.youtube.com/watch?v=AcLyAIcme08'},
+    {n:6,t:'Gnosis: The Untold History of the Bible',u:'https://www.youtube.com/watch?v=IRMsvksZBUU'},
+    {n:7,t:'Ancient Knowledge',u:'https://www.youtube.com/watch?v=HF1auIxOxec'},
+    {n:8,t:'DMT: The Spirit Molecule',u:'https://www.youtube.com/watch?v=fwZqVqbkyLM'},
+    {n:9,t:'The Nature of Ayahuasca',u:'https://www.youtube.com/watch?v=6j0_glRnJxI'},
+    {n:10,t:"Ancient Egypt and The Alternative Story of Mankind's Origins",u:'https://www.youtube.com/watch?v=hypyAM0M6c4'}
+  ]},
+  {title:"The living land — nature's intelligence",desc:'The land as teacher. Trees, fungi, plants — the intelligence that was always there.',tag:'tag-nature',label:'The living world',films:[
+    {n:1,t:'Baraka',u:'https://www.youtube.com/watch?v=LKGpHu9IONc',note:'No narration, pure land'},
+    {n:2,t:'The Hidden Language of Trees',u:'https://www.youtube.com/watch?v=NOFPqbvD-vE'},
+    {n:3,t:'Decoding the Secret Patterns of Nature',u:'https://www.youtube.com/watch?v=lXyCRP871VI'},
+    {n:4,t:'The Intelligence of Plants',u:'https://www.youtube.com/watch?v=e3rYvFVpFDE'},
+    {n:5,t:'The Kingdom of Fungi',u:'https://www.youtube.com/watch?v=ISEMn00R5Tc'},
+    {n:6,t:'Music For Mushrooms',u:'https://www.youtube.com/watch?v=N3EvV2_XE_Y',note:'Where music and landscape meet'},
+    {n:7,t:'Anima Mundi',u:'https://www.youtube.com/watch?v=EB-6VjvGdvw'},
+    {n:8,t:'The Secret Life of Trees',u:'https://www.youtube.com/watch?v=k9fBEc-dRYI'},
+    {n:9,t:'Life Power',u:'https://www.youtube.com/watch?v=oIMUPPIoqPY'},
+    {n:10,t:'Metanoia: A New Vision of Nature',u:'https://www.youtube.com/watch?v=AGYntATukzA'}
+  ]},
+  {title:'Roots & rootlessness — indigenous knowing',desc:'Peoples who kept the connection. What modernity walked away from.',tag:'tag-road',label:'Indigenous knowing',films:[
+    {n:1,t:'Native America',u:'https://www.youtube.com/watch?v=g3LYdC6byBM'},
+    {n:2,t:'Keepers of the Forest',u:'https://www.youtube.com/watch?v=ZywE92bDCrQ'},
+    {n:3,t:'The Men of Fifth World',u:'https://www.youtube.com/watch?v=-1Td8VUcKk0'},
+    {n:4,t:'Indigenous Peoples Are Restoring What Modernity Destroyed',u:'https://www.youtube.com/watch?v=1zHckov1l34'},
+    {n:5,t:'Tribes of the Amazon',u:'https://www.youtube.com/watch?v=y_qNHRCdwn4'},
+    {n:6,t:'Future Dreaming',u:'https://www.youtube.com/watch?v=0Wmtjnp-7wg'},
+    {n:7,t:'Unseen Tibet',u:'https://www.youtube.com/watch?v=5hbUzrzIzx8'},
+    {n:8,t:'The Yogis of Tibet',u:'https://www.youtube.com/watch?v=GrWhX1BixBk'},
+    {n:9,t:'Light at the Edge of the World — Wade Davis TED Talk',u:'https://www.youtube.com/watch?v=MBbgQ0VHPGQ'},
+    {n:10,t:'Where Science and Buddhism Meet',u:'https://www.youtube.com/watch?v=P__d0WyN0HE'}
+  ]},
+  {title:'Putting down roots — land, soil, a simpler life',desc:'The destination energy. Tiny home, land, growing things. Where the road leads.',tag:'tag-land',label:'Destination energy',films:[
+    {n:1,t:'Back To Eden',u:'https://www.youtube.com/watch?v=6rPPUmStKQ4',note:'Watch when you need to feel the destination'},
+    {n:2,t:'A Simpler Way: Crisis as Opportunity',u:'https://www.youtube.com/watch?v=XUwLAvfBCzw'},
+    {n:3,t:'Fools And Dreamers',u:'https://www.youtube.com/watch?v=3VZSJKbzyMc'},
+    {n:4,t:'An Invitation To Wildness',u:'https://www.youtube.com/watch?v=6GJFL0MD9fc'},
+    {n:5,t:'Living Soil',u:'https://www.youtube.com/watch?v=ntJouJhLM48'},
+    {n:6,t:'Dirt! The Movie',u:'https://www.youtube.com/watch?v=pbl7UIOvdJA'},
+    {n:7,t:'Regreening The Planet',u:'https://www.youtube.com/watch?v=OC_Y1ZTZXQ4'},
+    {n:8,t:'The Regenerates',u:'https://vimeo.com/120837455'},
+    {n:9,t:'Real Value',u:'https://www.youtube.com/watch?v=ez3CWXQrgVo'},
+    {n:10,t:'Origins',u:'https://www.youtube.com/watch?v=lMBTB2oqSfw'}
+  ]},
+  {title:'The open road — wild travel, solitude & the way less travelled',desc:'For those who move. The call of the expedition, the wilderness, the interior journey.',tag:'tag-road',label:'The Road',films:[
+    {n:1,t:'Two Years Alone In The Wilderness',u:'https://www.youtube.com/watch?v=AxM9FYSs8V4',note:'The interior life of solitude'},
+    {n:2,t:'Touching The Void — trailer',u:'https://www.youtube.com/watch?v=Bh7oGLCMriY',note:'On Netflix · BAFTA-winning survival classic'},
+    {n:3,t:'14 Peaks: Nothing Is Impossible — trailer',u:'https://www.youtube.com/watch?v=8QH5hBOoz08',note:'On Netflix · ex-SBS, all 14 in 7 months'},
+    {n:4,t:'Into The Wild — trailer',u:'https://www.youtube.com/watch?v=E1I_5s_2sFs',note:'On Prime · the call of the wild, answered'},
+    {n:5,t:'Down To Earth',u:'https://www.youtube.com/watch?v=RoWgEOxoQy4'},
+    {n:6,t:"Vietnam's Infinite Cave",u:'https://youtu.be/6cTIA03cwqE'},
+    {n:7,t:'Magic of the Mountains',u:'https://www.youtube.com/watch?v=M4VyfPxqGnI'},
+    {n:8,t:'At 23000 Feet — Life and Death Expedition',u:'https://www.youtube.com/watch?v=nBEMVjmDZUc'},
+    {n:9,t:'Rivering: An Ode To The Whitewater Obsession',u:'https://www.youtube.com/watch?v=IYctDSHzusM'},
+    {n:10,t:"The Nile: On The Banks of the World's Longest River",u:'https://www.youtube.com/watch?v=5U2JXUVdVS4'}
+  ]},
+  {title:'Sound & vision — music, art & the creative life',desc:'The troubadour looks at his tribe. Makers, artists, musicians moving through the world.',tag:'tag-myth',label:'Music & art',films:[
+    {n:1,t:'The Healing Power Of Music',u:'https://www.youtube.com/watch?v=QpeWTkVmUcY'},
+    {n:2,t:'The Art of Listening',u:'https://www.youtube.com/watch?v=Xnt-c5i5prM'},
+    {n:3,t:'Bob Marley: Freedom Road',u:'https://www.youtube.com/watch?v=uXfv3LDUjC4'},
+    {n:4,t:'Bob Marley: Roots of the Man',u:'https://www.youtube.com/watch?v=A0S1N1Oh3pM'},
+    {n:5,t:'Everything Is A Remix',u:'https://www.youtube.com/watch?v=nJPERZDfyWc'},
+    {n:6,t:'CoSM: Alex Grey & the Chapel of Sacred Mirrors',u:'https://www.youtube.com/watch?v=Fj8yz3xjZVY'},
+    {n:7,t:'How Art Made The World: More Human Than Human',u:'https://vimeo.com/286577759'},
+    {n:8,t:'Antony Gormley: How Art Began',u:'https://www.youtube.com/watch?v=WzauciaS24k'},
+    {n:9,t:'PressPausePlay: Art & Creativity in the Digital Age',u:'https://vimeo.com/34608191'},
+    {n:10,t:'Music For Mushrooms',u:'https://www.youtube.com/watch?v=N3EvV2_XE_Y'}
+  ]},
+  {title:'Before the flood — lost civilisations & deep time',desc:'The world that was. Pre-flood civilisations, Atlantis, the ancient ones. Book II territory.',tag:'tag-sacred',label:'Deep time',films:[
+    {n:1,t:'Atlantis: End of a World, Birth of a Legend',u:'https://www.youtube.com/watch?v=lXD7CxVx6-Y',note:'BBC drama-doc'},
+    {n:2,t:"Secret Mysteries of America's Beginnings: The New Atlantis",u:'https://www.youtube.com/watch?v=tzKqVtu6C5s'},
+    {n:3,t:'The Great Pyramid Hoax',u:'https://www.youtube.com/watch?v=tjsbuiQUGtc'},
+    {n:4,t:'What the Ancients Knew',u:'https://www.youtube.com/watch?v=5oUBdjsoZKc'},
+    {n:5,t:'The Lost World of Easter Island',u:'https://www.youtube.com/watch?v=rp7KyIk11ts'},
+    {n:6,t:'Ancient Aliens: Origin of Humanity',u:'https://www.youtube.com/watch?v=1wmW9n2ZeHU'},
+    {n:7,t:'Egypt: Beyond the Pyramids',u:'https://www.youtube.com/watch?v=AklJOYbEzXg'},
+    {n:8,t:'What The Ancients Did For Us',u:'https://www.youtube.com/watch?v=UI0zUReqiKo'},
+    {n:9,t:'The Ancient Science of Sound — Cymatics & Vedic Knowledge',u:'https://www.youtube.com/watch?v=Q3oItpVa9fs'},
+    {n:10,t:'Graham Hancock & Randall Carlson — Younger Dryas Impact',u:'https://www.youtube.com/watch?v=4Z9WVZddH9w'}
+  ]},
+  {title:"The world we're walking away from",desc:'Understanding the system helps you leave it behind. The pilgrim knows what he is departing from.',tag:'tag-world',label:'Context',films:[
+    {n:1,t:'The Century of the Self',u:'https://www.youtube.com/watch?v=eJ3RzGoQC4s',note:'Essential context'},
+    {n:2,t:'Hypernormalisation',u:'https://www.youtube.com/watch?v=-fny99f8amM'},
+    {n:3,t:'All Watched Over By Machines Of Loving Grace',u:'https://vimeo.com/68299139'},
+    {n:4,t:'Manufacturing Consent',u:'https://www.youtube.com/watch?v=EuwmWnphqII'},
+    {n:5,t:'Four Horsemen',u:'https://www.youtube.com/watch?v=5fbvquHSPJU'},
+    {n:6,t:'The Power Of Nightmares',u:'https://www.youtube.com/watch?v=jxBbw13Y3Gc'},
+    {n:7,t:'THRIVE: What On Earth Will It Take?',u:'https://www.youtube.com/watch?v=jW7PHcuR570'},
+    {n:8,t:'The Crisis of Civilization',u:'https://vimeo.com/34752785'},
+    {n:9,t:'Obey: The Death of the Liberal Class',u:'https://vimeo.com/59002146'},
+    {n:10,t:'Money and Life',u:'https://www.youtube.com/watch?v=OL5xyoD_P6A'}
+  ]},
+  {title:'Cosmos & the quantum — the universe at its edges',desc:'Where science starts to feel like mysticism. The very large and the very small.',tag:'tag-inner',label:'Cosmos & mystery',films:[
+    {n:1,t:'Fractals: The Hidden Dimension',u:'https://www.youtube.com/watch?v=wkI0y43EqHI'},
+    {n:2,t:'Quantum Reality: Space, Time and Entanglement',u:'https://www.youtube.com/watch?v=p_o4aY9xkXg'},
+    {n:3,t:'Quantum Consciousness: Bridging Quantum Mechanics and Awareness',u:'https://www.youtube.com/watch?v=KIIJWon2ofo'},
+    {n:4,t:'Parallel Universes, Alternative Timelines & Multiverse',u:'https://www.youtube.com/watch?v=8lRBWvBPQRw'},
+    {n:5,t:'Into The Universe With Stephen Hawking',u:'https://vimeo.com/17777145'},
+    {n:6,t:'Inside the Milky Way — National Geographic',u:'https://www.youtube.com/watch?v=uPK_oHDCCU8'},
+    {n:7,t:'Beyond The Big Bang — History Channel',u:'https://www.youtube.com/watch?v=R3UKxZ1JFMA'},
+    {n:8,t:'Five Wonders Of Our Universe',u:'https://www.youtube.com/watch?v=oz-Y1Xzx5iQ'},
+    {n:9,t:'Zero To Infinity',u:'https://www.youtube.com/watch?v=z2_iZuOyF4E'},
+    {n:10,t:'Holographic Universe & Unified Field — Nassim Haramein',u:'https://www.youtube.com/watch?v=4OZj1XAjcTY'}
+  ]},
+  {title:'The human story — evolution, origins, emergence',desc:"How we got here. The long arc of humanity's becoming. What we might yet be.",tag:'tag-world',label:'Human story',films:[
+    {n:1,t:'Homo Sapiens: The Dazzling Rise Of Our Species',u:'https://www.youtube.com/watch?v=9mkLmxUkhRw'},
+    {n:2,t:'The Incredible Human Journey — Alice Roberts',u:'https://www.youtube.com/watch?v=kVn1TgHGCKA'},
+    {n:3,t:'Birth Of A New Humanity',u:'https://www.youtube.com/watch?v=-rkqA1eaFB8'},
+    {n:4,t:'The Global Brain — Peter Russell',u:'https://www.youtube.com/watch?v=CjjQTX9kmS8'},
+    {n:5,t:'What Darwin Never Knew — PBS Nova',u:'https://www.youtube.com/watch?v=scONVBd_7f4'},
+    {n:6,t:'Guns, Germs and Steel',u:'https://www.youtube.com/watch?v=i885hopsw6E'},
+    {n:7,t:'Whole History of the Earth and Life',u:'https://www.youtube.com/watch?v=NQ4CUw9RcuA'},
+    {n:8,t:'The Human Family Tree',u:'https://www.youtube.com/watch?v=MbIB81h7pt4'},
+    {n:9,t:'Why We Dream',u:'https://www.youtube.com/watch?v=rfqalXigeOc'},
+    {n:10,t:'A Virus Called Fear',u:'https://www.youtube.com/watch?v=O-VLHNpwju0'}
+  ]}
+];
+
+var thinkers = [
+  {name:'Graham Hancock',tagline:'Journalist and author. Hunter of lost civilisations, drowned worlds, and the catastrophe that wiped out an advanced ice-age humanity.',tags:[{l:'Sacred Britain',c:'tag-sacred'},{l:'Ancient mysteries',c:'tag-inner'}],bio:"His life's work: that an advanced civilisation was destroyed in the cataclysm ending the last Ice Age, its fingerprints buried in megalithic sites worldwide. Ancient Apocalypse Season 2 launched on Netflix in October 2024.",links:[{t:'Website',l:'grahamhancock.com',u:'https://grahamhancock.com'},{t:'YouTube',l:'Graham Hancock Official Channel',u:'https://www.youtube.com/c/GrahamHancock'},{t:'Netflix',l:'Ancient Apocalypse — Season 2 (Oct 2024)',u:'https://grahamhancock.com/ancient-apocalypse/'},{t:'Talk',l:'Gobekli Tepe & Why It Matters — Sedona 2025',u:'https://www.youtube.com/watch?v=ti0NCNShQm4'},{t:'Podcast',l:'Lex Fridman #449 — Lost Civilisation of the Ice Age',u:'https://lexfridman.com/graham-hancock-2/'}]},
+  {name:'Rupert Sheldrake',tagline:'Biologist and author. Morphic resonance, the extended mind, the memory of nature. Science that dares to ask the questions science forbids.',tags:[{l:'Consciousness',c:'tag-inner'},{l:"Nature's intelligence",c:'tag-nature'}],bio:"His hypothesis: nature has inherent memory — habits and patterns persist across time through morphic resonance. Holberg Prize laureate. Runs the Sheldrake-Vernon Dialogues podcast (99 episodes). Active on Substack.",links:[{t:'Website',l:'sheldrake.org',u:'https://www.sheldrake.org'},{t:'YouTube',l:'Rupert Sheldrake Channel',u:'https://www.youtube.com/@RupertSheldrake'},{t:'Substack',l:'rupertsheldrake.substack.com',u:'https://rupertsheldrake.substack.com'},{t:'Podcast',l:'The Sheldrake-Vernon Dialogues (ongoing)',u:'https://www.sheldrake.org/audios/sheldrake-vernon-dialogues'},{t:'Talk',l:'Banned TEDx Talk — The Science Delusion',u:'https://www.youtube.com/watch?v=1TerTgDEgUE'}]},
+  {name:'Randall Carlson',tagline:'Architect, geologist, sacred geometer. The catastrophist who maps the floods, the cycles, and the cosmic architecture of human prehistory.',tags:[{l:'Deep time',c:'tag-sacred'},{l:'Sacred geometry',c:'tag-inner'}],bio:'Eight appearances on Joe Rogan. Expert on the Younger Dryas catastrophe, glacial megafloods, and sacred geometry in ancient architecture. Runs Kosmographia podcast. Leads field tours to megaflood sites.',links:[{t:'Website',l:'randallcarlson.com',u:'https://randallcarlson.com'},{t:'YouTube',l:'Randall Carlson Channel',u:'https://www.youtube.com/channel/UCAPciy143ZBXBrFpCVPnWDg'},{t:'Podcast',l:'Kosmographia — The Randall Carlson Podcast',u:'https://podcasts.apple.com/us/podcast/kosmographia/id1479346591'},{t:'Podcast',l:'Squaring The Circle Podcast',u:'https://open.spotify.com/show/35RTJBBYmlrlPeXeQgPIHG'},{t:'Events',l:'Field tours — megaflood sites & sacred landscapes',u:'https://randallcarlson.com/tours-and-events'}]},
+  {name:'Paul Kingsnorth',tagline:"Writer and essayist. One of the most searching voices on civilisational collapse, the Machine, and what it means to live faithfully in the ruins.",tags:[{l:"The world we're leaving",c:'tag-world'},{l:'Land & roots',c:'tag-land'}],bio:"Founder of the Dark Mountain Project. Orthodox Christian. Animist. His Substack — The Abbey of Misrule — has over 50,000 subscribers. Latest book: Against The Machine (Sept 2025). Working on a book on Christian nature mysticism. Lives in rural Ireland.",links:[{t:'Website',l:'paulkingsnorth.net',u:'https://www.paulkingsnorth.net'},{t:'Substack',l:'The Abbey of Misrule',u:'https://paulkingsnorth.substack.com'},{t:'Book',l:'Against The Machine — Sept 2025',u:'https://www.paulkingsnorth.net/about'},{t:'Talk',l:'Conversation with Martin Shaw on Dartmoor — March 2025',u:'https://paulkingsnorth.substack.com/p/a-wild-unreasoning'}]},
+  {name:'Martin Shaw',tagline:"Mythologist, storyteller, wilderness guide. Our greatest living storyteller — the man who went into the woods and brought back the old stories.",tags:[{l:'Myth & spirit',c:'tag-myth'},{l:'Sacred Britain',c:'tag-sacred'}],bio:'Author of seventeen books. Spent four years living in a tent. Founded Oral Tradition and Living Myth at Stanford University. Orthodox Christian. New book: Liturgies of the Wild (Feb 2026).',links:[{t:'Website',l:'drmartinshaw.com — School of Myth',u:'https://drmartinshaw.com'},{t:'Substack',l:'martinshaw.substack.com',u:'https://martinshaw.substack.com'},{t:'Book',l:'Liturgies of the Wild — Feb 2026',u:'https://drmartinshaw.com'},{t:'Essay',l:'Navigating the Mysteries — Emergence Magazine',u:'https://drmartinshaw.com/navigating-the-mysteries-emergence-magazine/'}]},
+  {name:'Nassim Haramein',tagline:'Physicist and unified field theorist. Quantum vacuum energy, gravity control, the holographic universe, and the geometry that connects everything.',tags:[{l:'Cosmos & quantum',c:'tag-inner'},{l:'Connected science',c:'tag-world'}],bio:'Thirty-five years researching unified physics. Research Director at the International Space Federation (ISF), working on sustainable energy through quantum vacuum fluctuations and gravity control. His Nature of Reality tour visited London in 2025.',links:[{t:'Website',l:'nassimharamein.com',u:'https://nassimharamein.com'},{t:'YouTube',l:'Nassim Haramein Channel',u:'https://www.youtube.com/user/Nassim1964'},{t:'Research',l:'International Space Federation — ISF',u:'https://nassimharamein.com/about/'},{t:'Talk',l:'Holographic Universe, Unified Field & Illusion of Time',u:'https://www.youtube.com/watch?v=4OZj1XAjcTY'},{t:'Events',l:'Nature of Reality Tour — global lectures',u:'https://nassimharamein.com/events/'}]},
+  {name:'Iain McGilchrist',tagline:'Psychiatrist and philosopher. On the divided brain, the loss of the right hemisphere, and what Western civilisation has forgotten.',tags:[{l:'Consciousness',c:'tag-inner'},{l:'The divided mind',c:'tag-world'}],bio:"His argument: Western civilisation has over-privileged the left hemisphere — the part that reduces and controls — losing touch with the living whole the right hemisphere perceives. The Master and His Emissary changed how many people see reality.",links:[{t:'Website',l:'channelmcgilchrist.com',u:'https://channelmcgilchrist.com'},{t:'YouTube',l:'Institute of Art and Ideas — McGilchrist talks',u:'https://www.youtube.com/@TheIAI'},{t:'Talk',l:'The Divided Brain — RSA Animate',u:'https://www.youtube.com/watch?v=dFs9WO2B8uI'},{t:'Book',l:'The Matter With Things — 2021',u:'https://channelmcgilchrist.com'}]},
+  {name:'Robin Wall Kimmerer',tagline:'Botanist and Citizen Potawatomi Nation member. Author of Braiding Sweetgrass. On plants, reciprocity, and the grammar of animacy.',tags:[{l:"Nature's intelligence",c:'tag-nature'},{l:'Indigenous knowing',c:'tag-land'}],bio:'Her book Braiding Sweetgrass has become one of the most quietly transformative books of the last decade — about what it means to live in relationship with the land and what the old ways of knowing can restore.',links:[{t:'Website',l:'robinwallkimmerer.com',u:'https://www.robinwallkimmerer.com'},{t:'Talk',l:"The Intelligence of Plants — On Being with Krista Tippett",u:'https://onbeing.org/programs/robin-wall-kimmerer-the-intelligence-of-plants/'},{t:'Talk',l:'Braiding Sweetgrass — Long Now Foundation',u:'https://www.youtube.com/watch?v=tkCiOAmEFpM'}]}
+];
+
+var fresh = [
+  {who:'Graham Hancock',date:'Oct 2024',title:'Ancient Apocalypse Season 2 — Netflix',desc:'Season 2 launched October 2024. Gunung Padang, Malta, Bimini, Gobekli Tepe. The most-watched alternative history content right now.',vid:'https://www.youtube.com/watch?v=T5DNvYMtkyk'},
+  {who:'Graham Hancock',date:'June 2025',title:'Gobekli Tepe & Why It Matters — Sedona 2025',desc:'Live presentation from the Fight For The Past event, Sedona, Arizona. New material on what Gobekli Tepe means for our understanding of the ancient world.',vid:'https://www.youtube.com/watch?v=ti0NCNShQm4'},
+  {who:'Rupert Sheldrake & Mark Vernon',date:'Late 2025',title:'Sheldrake-Vernon Dialogues — Patron Saints & Spirits of Place',desc:'On genii locorum, patron saints, and the spirits that protect particular places and landscapes. Directly relevant to The Road and the old sacred sites.',ext:'https://www.sheldrake.org/audios/sheldrake-vernon-dialogues',extLabel:'Listen to podcast →'},
+  {who:'Rupert Sheldrake',date:'Sept 2025',title:'Psi in Everyday Life — How The Light Gets In Festival',desc:"The everyday hunches we shrug off — being watched, knowing who's calling — as evidence of a mind that reaches, bonds, and anticipates.",vid:'https://www.youtube.com/watch?v=j91Er2Zh3j4'},
+  {who:'Paul Kingsnorth',date:'Sept 2025',title:'Against The Machine — new book',desc:'Thirty years of thinking distilled. On the technological society, what it costs the soul, and how to live through it.',ext:'https://www.paulkingsnorth.net/about',extLabel:'Read more →'},
+  {who:'Paul Kingsnorth',date:'From Jan 2025',title:'The Sunday Pilgrimage — Substack series',desc:'A new weekly series from The Abbey of Misrule. On pilgrimage, place, faith, and the deeper currents of the present moment.',ext:'https://paulkingsnorth.substack.com',extLabel:'Read on Substack →'},
+  {who:'Martin Shaw',date:'Feb 2026',title:'Liturgies of the Wild — new book',desc:'Folklore, wilderness tradition, and Christian theology. Shaw argues that Christianity is an initiatory path — and the old myths are the doorway back in.',ext:'https://drmartinshaw.com',extLabel:'Learn more →'},
+  {who:'Martin Shaw & Paul Kingsnorth',date:'March 2025',title:'Conversation on Dartmoor — after Widecombe church',desc:'Two of the most important voices in this space, together in a Dartmoor pub — on the Green Man, Orthodox Christianity, and what the English landscape is saying.',ext:'https://paulkingsnorth.substack.com/p/a-wild-unreasoning',extLabel:'Read on Substack →'},
+  {who:'Nassim Haramein',date:'2024-2025',title:'Holographic Universe, Unified Field & Illusion of Time',desc:'Zero-point energy, gravity control, quantum vacuum fluctuations, and the geometry underlying all of physical reality.',vid:'https://www.youtube.com/watch?v=4OZj1XAjcTY'},
+  {who:'Randall Carlson',date:'Sept 2025',title:'Stonehenge, Atlantis & Ancient Technologies — Align Podcast',desc:"Long-form conversation on Stonehenge's hidden timeline, the potential reality of Atlantis, and the forgotten technologies of ancient cultures.",ext:'https://podcasts.apple.com/me/podcast/randall-carlson-the-secret-that Screen-rewrites-human/id988576741?i=1000725440634',extLabel:'Listen to podcast →'},
+  {who:'Randall Carlson',date:'Nov 2024',title:'Kosmographia Ep 111 — Sacred Geometry & Cosmic Science',desc:'Harmonic numbers known by the Ancients, plasma technologies, and the cosmic architecture hidden in ancient sacred sites.',ext:'https://podcasts.apple.com/us/podcast/kosmographia/id1479346591',extLabel:'Listen to podcast →'},
+  {who:'Various',date:'2025',title:'The Missing Chapter of Human History',desc:'A documentary tackling the suppressed prehistory of humanity — the evidence mainstream archaeology is reluctant to engage with.',vid:'https://www.youtube.com/watch?v=-JlsRQMfFJY'}
+];
+
+var fc = document.getElementById('filmCats');
+var openFilm = null;
+cats.forEach(function(cat, i) {
+  var wrap = document.createElement('div');
+  var btn = document.createElement('button');
+  btn.className = 'film-cat-btn';
+  btn.innerHTML = '<div class="cat-left"><div class="cat-title">'+cat.title+'</div><div class="cat-desc">'+cat.desc+'</div><span class="cat-tag '+cat.tag+'">'+cat.label+'</span></div><span class="cat-chev" id="fc'+i+'">&#9662;</span>';
+  var panel = document.createElement('div');
+  panel.className = 'film-panel'; panel.id = 'fp'+i;
+  var grid = document.createElement('div'); grid.className = 'film-grid';
+  cat.films.forEach(function(f) {
+    var item = document.createElement('div'); item.className = 'film-item';
+    var fbtn = document.createElement('button'); fbtn.className = 'film-btn'; fbtn.textContent = f.t;
+    fbtn.addEventListener('click', function(){ openModal(f.u, f.t, cat.label); });
+    item.innerHTML = '<span class="film-num">'+f.n+'.</span>';
+    item.appendChild(fbtn);
+    if (f.note) { var fn = document.createElement('span'); fn.className='film-note'; fn.textContent=' — '+f.note; item.appendChild(fn); }
+    grid.appendChild(item);
+  });
+  panel.appendChild(grid);
+  btn.addEventListener('click', function() {
+    if (openFilm !== null && openFilm !== i) {
+      document.getElementById('fp'+openFilm).classList.remove('open');
+      document.getElementById('fc'+openFilm).classList.remove('open');
+      cats[openFilm]._b && cats[openFilm]._b.classList.remove('open');
+    }
+    var op = panel.classList.contains('open');
+    panel.classList.toggle('open',!op); btn.classList.toggle('open',!op);
+    document.getElementById('fc'+i).classList.toggle('open',!op);
+    openFilm = op ? null : i;
+  });
+  cats[i]._b = btn;
+  wrap.appendChild(btn); wrap.appendChild(panel); fc.appendChild(wrap);
+});
+
+var tg = document.getElementById('thinkersGrid');
+var openT = null;
+thinkers.forEach(function(t, i) {
+  var card = document.createElement('div'); card.className = 'thinker-card';
+  card.innerHTML = '<div class="thinker-head"><div><div class="thinker-name">'+t.name+'</div><div class="thinker-tagline">'+t.tagline+'</div><div class="thinker-tags">'+t.tags.map(function(tg){return '<span class="cat-tag '+tg.c+'">'+tg.l+'</span>';}).join('')+'</div></div><span class="thinker-chev" id="tc'+i+'">&#9662;</span></div><div class="thinker-body" id="tb'+i+'"><p class="thinker-bio">'+t.bio+'</p><div class="thinker-links">'+t.links.map(function(l){return '<a class="thinker-link" href="'+l.u+'" target="_blank" rel="noopener"><span class="link-type">'+l.t+'</span><span class="link-label">'+l.l+'</span></a>';}).join('')+'</div></div>';
+  card.addEventListener('click', function(e) {
+    if (e.target.closest('a')) return;
+    if (openT !== null && openT !== i) {
+      document.getElementById('tb'+openT).classList.remove('open');
+      document.getElementById('tc'+openT).classList.remove('open');
+      thinkers[openT]._c && thinkers[openT]._c.classList.remove('open');
+    }
+    var b = document.getElementById('tb'+i), ch = document.getElementById('tc'+i);
+    var op = b.classList.contains('open');
+    b.classList.toggle('open',!op); ch.classList.toggle('open',!op); card.classList.toggle('open',!op);
+    openT = op ? null : i;
+  });
+  thinkers[i]._c = card; tg.appendChild(card);
+});
+
+var fg = document.getElementById('freshGrid');
+fresh.forEach(function(f) {
+  var card = document.createElement('div');
+  var hasVid = !!f.vid;
+  card.className = 'fresh-card' + (hasVid ? ' has-video' : '');
+  var action = hasVid ? '<div class="fresh-play">&#9654; Watch here</div>' :
+    (f.ext ? '<a class="fresh-ext" href="'+f.ext+'" target="_blank" rel="noopener">'+f.extLabel+'</a>' : '');
+  card.innerHTML = '<div class="fresh-meta"><span class="fresh-who">'+f.who+'</span><span class="fresh-date">'+f.date+'</span></div><div class="fresh-title">'+f.title+'</div><div class="fresh-desc">'+f.desc+'</div>'+action;
+  if (hasVid) card.addEventListener('click', function(){ openModal(f.vid, f.title, f.who); });
+  fg.appendChild(card);
+});
+
+document.querySelectorAll('.channel-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.channel-tab').forEach(function(t){t.classList.remove('active');});
+    document.querySelectorAll('.channel-section').forEach(function(s){s.classList.remove('active');});
+    tab.classList.add('active');
+    var sec = document.getElementById(tab.dataset.target);
+    sec.classList.add('active');
+    sec.querySelectorAll('.fade-in').forEach(function(el){ el.classList.remove('visible'); setTimeout(function(){obs.observe(el);},50); });
+    window.scrollTo({top: document.getElementById('channelNav').offsetTop - 62, behavior:'smooth'});
+  });
+});
+
+var nt = document.getElementById('navToggle'), nl = document.getElementById('navLinks');
+nt.addEventListener('click', function(){ nl.classList.toggle('open'); });
+nl.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ nl.classList.remove('open'); }); });
+
+var obs = new IntersectionObserver(function(entries){
+  entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.08});
+document.querySelectorAll('.fade-in').forEach(function(el){ obs.observe(el); });
+</script>
+</body>
+</html>

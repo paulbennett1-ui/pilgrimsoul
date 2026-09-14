@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fellow Travellers — Pilgrim Soul</title>
+  <meta name="description" content="A gathering place for walkers, pilgrims, and seekers. Leave a word. Read the thread. Join the road.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- PLATFORM LINKS -->
+  <!-- Discord: https://discord.gg/qgJCYvkD -->
+  <!-- Supabase project: https://krgjijjxakqrtqrvitex.supabase.co -->
+
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.25); --cream: #F5EFE4; --cream-dim: rgba(245,239,228,0.75); --dark: #0E0D0B; --dark-mid: #1A1915; --dark-warm: #221F1A; --text-body: #C8BFA8; --text-muted: #7A7368; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); overflow-x: hidden; }
+    .page-hero { position: relative; height: 70vh; min-height: 520px; display: flex; align-items: flex-end; overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(14,13,11,0.35) 0%, rgba(14,13,11,0.2) 35%, rgba(14,13,11,0.82) 72%, rgba(14,13,11,1) 100%), url('images/country-path.jpg') center/cover no-repeat; animation: slowdrift 22s ease-in-out infinite alternate; }
+    @keyframes slowdrift { from { transform: scale(1.04) translateY(0); } to { transform: scale(1.06) translateY(-1.2%); } }
+    .page-hero-content { position: relative; padding: 0 2rem 4rem; max-width: 1020px; margin: 0 auto; width: 100%; animation: fadeUp 1.6s ease forwards; opacity: 0; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .page-eyebrow { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1rem; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.5rem, 6vw, 4.2rem); color: var(--cream); line-height: 1.1; margin-bottom: 1rem; }
+    .page-title em { font-style: italic; color: var(--gold-light); }
+    .page-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-body); max-width: 520px; line-height: 1.7; }
+    .container { max-width: 1020px; margin: 0 auto; }
+    .section-label { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1.5rem; }
+    .community-intro { padding: 5rem 2rem; background: var(--dark); border-top: 1px solid rgba(201,168,76,0.08); }
+    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .intro-text p { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 1.9; color: var(--text-body); margin-bottom: 1.5rem; }
+    .intro-text p:last-child { margin-bottom: 0; }
+    .intro-text p.lead { font-size: 1.3rem; color: var(--cream); line-height: 1.75; font-weight: 300; }
+    .intro-aside { border-left: 1px solid rgba(201,168,76,0.2); padding-left: 2.5rem; }
+    .intro-aside blockquote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; line-height: 1.75; color: var(--cream-dim); margin-bottom: 1.5rem; }
+    .intro-aside p { font-family: 'Cormorant Garamond', serif; font-size: 1rem; line-height: 1.8; color: var(--text-muted); }
+    .comments-section { padding: 0 2rem 5rem; background: var(--dark); }
+    .comments-inner { max-width: 720px; }
+    .comment-form-wrap { background: var(--dark-warm); border: 1px solid rgba(201,168,76,0.12); padding: 2.5rem; margin-bottom: 3.5rem; }
+    .comment-form-wrap h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.5rem; color: var(--cream); margin-bottom: 0.5rem; }
+    .comment-form-wrap p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.98rem; color: var(--text-muted); margin-bottom: 1.75rem; line-height: 1.65; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-field label { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); }
+    .form-field input, .form-field textarea { background: rgba(245,239,228,0.04); border: 1px solid rgba(201,168,76,0.2); color: var(--cream); font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.88rem; padding: 0.8rem 1rem; outline: none; transition: border-color 0.3s; resize: vertical; }
+    .form-field input:focus, .form-field textarea:focus { border-color: rgba(201,168,76,0.55); }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--text-muted); }
+    .form-field textarea { min-height: 120px; }
+    .form-full { margin-bottom: 1rem; }
+    .form-submit-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+    .form-note { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.04em; max-width: 340px; line-height: 1.5; }
+    .btn-submit { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dark); background: var(--gold); border: none; padding: 0.9rem 2.5rem; cursor: pointer; transition: background 0.3s; white-space: nowrap; }
+    .btn-submit:hover { background: var(--gold-light); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-status { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; margin-top: 1rem; }
+    .form-status.success { color: var(--gold); }
+    .form-status.error { color: #c0776b; }
+    .comments-list-label { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .comments-loading { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--text-muted); padding: 1rem 0; }
+    .comments-empty { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-muted); line-height: 1.75; padding: 1rem 0; }
+    .comment-thread { margin-bottom: 2.5rem; }
+    .comment-card { border-left: 2px solid rgba(201,168,76,0.2); padding: 1.5rem 0 1.5rem 1.75rem; position: relative; }
+    .comment-card.is-reply { border-left-color: rgba(201,168,76,0.1); margin-left: 2rem; padding-top: 1.25rem; padding-bottom: 1.25rem; }
+    .comment-meta { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.75rem; }
+    .comment-name { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+    .comment-date { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.04em; }
+    .comment-body { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.82; color: var(--text-body); margin-bottom: 0.85rem; }
+    .reply-btn { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); background: none; border: none; cursor: pointer; padding: 0; transition: color 0.3s; }
+    .reply-btn:hover { color: var(--gold); }
+    .reply-form-wrap { margin-top: 1.25rem; background: rgba(245,239,228,0.02); border: 1px solid rgba(201,168,76,0.1); padding: 1.5rem; display: none; }
+    .reply-form-wrap.open { display: block; }
+    .reply-form-wrap .form-row { grid-template-columns: 1fr 1fr; }
+    .reply-form-wrap .btn-submit { padding: 0.75rem 1.75rem; font-size: 0.65rem; }
+    .reply-cancel { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); background: none; border: none; cursor: pointer; padding: 0; margin-left: 1rem; transition: color 0.3s; }
+    .reply-cancel:hover { color: var(--cream); }
+    .landscape-break { height: 320px; position: relative; overflow: hidden; }
+    .landscape-break-bg { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--dark) 0%, transparent 22%, transparent 78%, var(--dark) 100%), url('images/glastonbury-tor.jpg') center/cover no-repeat; filter: saturate(0.5) brightness(0.6); }
+    .landscape-break-text { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .landscape-break-text p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 3vw, 2rem); color: var(--cream); text-align: center; max-width: 600px; padding: 0 2rem; line-height: 1.65; text-shadow: 0 2px 20px rgba(0,0,0,0.7); }
+    .discord-section { padding: 5rem 2rem; background: var(--dark-mid); border-top: 1px solid rgba(201,168,76,0.08); }
+    .discord-inner { max-width: 720px; }
+    .discord-inner h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--cream); margin-bottom: 1.25rem; line-height: 1.25; }
+    .discord-inner h2 em { font-style: italic; color: var(--gold-light); }
+    .discord-body p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.88; color: var(--text-body); margin-bottom: 1.25rem; }
+    .discord-body p:last-of-type { margin-bottom: 2rem; }
+    .discord-note { border-left: 2px solid rgba(201,168,76,0.25); padding: 1rem 1.5rem; margin: 2rem 0; }
+    .discord-note p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+    .btn-discord { display: inline-block; font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dark); background: var(--gold); padding: 0.95rem 2.75rem; text-decoration: none; transition: background 0.3s, transform 0.2s; }
+    .btn-discord:hover { background: var(--gold-light); transform: translateY(-1px); }
+    footer { background: var(--dark); border-top: 1px solid rgba(201,168,76,0.1); padding: 3.5rem 2rem; }
+    .footer-inner { max-width: 1020px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+    .footer-logo { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold); opacity: 0.75; text-decoration: none; }
+    .footer-links { display: flex; gap: 2.25rem; list-style: none; }
+    .footer-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.76rem; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); }
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.85s ease, transform 0.85s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) {
+      .nav-links.open { display: flex; }      .intro-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .intro-aside { border-left: none; padding-left: 0; border-top: 1px solid rgba(201,168,76,0.15); padding-top: 2rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .comment-card.is-reply { margin-left: 1rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .community-intro, .comments-section, .discord-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .landscape-break { height: 220px; }
+    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.1rem 3rem; display: flex; justify-content: space-between; align-items: center; background: #1A1915; border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .nav-logo { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 0.28em; color: var(--gold); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--cream); }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; } .nav-logo { font-size: 0.85rem; }
+      .nav-links { display: none; position: fixed; inset: 0; background: rgba(14,13,11,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 99; }
+      .nav-links.open { display: flex; } .nav-links a { font-size: 1rem; letter-spacing: 0.2em; } .nav-toggle { display: flex; z-index: 101; }
+    }
+</style>
+</head>
+<body>
+    <nav>
+    <a href="index.html" class="nav-logo">Pilgrim Soul</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="dispatch.html">Dispatch</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="havens.html">Havens</a></li>
+      <li><a href="vision-fire.html">Vision Fire</a></li>
+      <li><a href="forum.html">Forum</a></li>
+      <li><a href="links.html">Directory</a></li>
+      <li><a href="community.html" class="active">Community</a></li>
+    </ul>
+  </nav>
+  <header class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="page-eyebrow">Fellow Travellers</span>
+      <h1 class="page-title">The path is walked<br><em>together</em></h1>
+      <p class="page-sub">A place to leave a word, start a thread, and find others who feel the pull of old roads and open country.</p>
+    </div>
+  </header>
+  <section class="community-intro">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="intro-text fade-in">
+          <span class="section-label">The gathering place</span>
+          <p class="lead">Every pilgrim's hostel has a guestbook. Every waymarked path has stones left by those who came before. This is that place.</p>
+          <p>Leave a word — where you are walking, what called you here, what you are carrying, or simply that you passed through. The thread builds slowly, like a trail of cairns. Someone who arrives after you will find it.</p>
+          <p>There is no algorithm here. No feed to scroll. Only the quiet accumulation of people who found the same road and stopped long enough to say so.</p>
+        </div>
+        <div class="intro-aside fade-in">
+          <blockquote>"The land holds memory. You only have to walk slowly enough to hear it."</blockquote>
+          <p>Comments are read before they appear. This is not a moderation wall — it is the same care you would give a guestbook left open on a table. Most things pass through. Some are returned quietly.</p>
+          <p style="margin-top:1rem;">Replies are threaded, so a conversation can form around a single thought. A good comment here is worth more than a hundred somewhere else.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="comments-section">
+    <div class="container">
+      <div class="comments-inner">
+        <div class="comment-form-wrap fade-in">
+          <h3>Leave a mark on the path</h3>
+          <p>Tell us where you are, what brought you here, or simply that you passed through.</p>
+          <div class="form-row">
+            <div class="form-field"><label for="comment-name">Your name</label><input type="text" id="comment-name" placeholder="How you'd like to be known" maxlength="80"></div>
+            <div class="form-field"><label for="comment-location">Where you are (optional)</label><input type="text" id="comment-location" placeholder="A place, a path, a county…" maxlength="100"></div>
+          </div>
+          <div class="form-field form-full"><label for="comment-body">Your words</label><textarea id="comment-body" placeholder="What would you like to leave here?" maxlength="1200"></textarea></div>
+          <div class="form-submit-row">
+            <p class="form-note">Comments are held briefly before appearing — usually within a day or two. Nothing is lost.</p>
+            <button class="btn-submit" id="submitBtn" onclick="submitComment()">Leave a word</button>
+          </div>
+          <div class="form-status" id="formStatus"></div>
+        </div>
+        <span class="comments-list-label">The thread so far</span>
+        <div id="commentsList"><p class="comments-loading">Gathering the thread…</p></div>
+      </div>
+    </div>
+  </section>
+  <div class="landscape-break">
+    <div class="landscape-break-bg"></div>
+    <div class="landscape-break-text"><p>"Not every fellow traveller walks the same road. Some walk alongside. Some have walked ahead."</p></div>
+  </div>
+  <!-- DISCORD SECTION — HIDDEN 11 JULY 2026, PAUL'S CALL: not ready to actively
+       invite people into Discord yet; will naturally become relevant once the
+       road trip begins and outward interaction picks up. Content preserved
+       below, untouched — just remove this comment wrapper to re-enable. -->
+  <!--
+  <section class="discord-section">
+    <div class="container">
+      <div class="discord-inner fade-in">
+        <span class="section-label">The campfire</span>
+        <h2>Fellow Travellers — <em>the server</em></h2>
+        <div class="discord-body">
+          <p>There is also a Discord server — a place for those who want something more immediate than a comment thread. Live conversation, shared finds, questions asked into the open air.</p>
+          <p>It is new. It is quiet right now. That is honest, and it is not a reason to stay away — it is a reason to arrive early.</p>
+          <div class="discord-note"><p>Every community like this begins with a handful of people sitting in an empty room, deciding that the room is worth staying in. If this calls to you, come and sit down. As more like-minded people find their way here, it will become something worth having found.</p></div>
+          <p>The server carries a permanent link back to Pilgrim Soul — the music, the books, the road — so wherever the conversation leads, the work is always there to be found.</p>
+          <a href="https://discord.gg/qgJCYvkD" target="_blank" rel="noopener" class="btn-discord">Join the campfire</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  -->
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">Pilgrim Soul</a>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="dispatch.html">Dispatch</a></li>
+        <li><a href="vision-fire.html">Vision Fire</a></li>
+        <li><a href="links.html">Directory</a></li>
+        <li><a href="community.html">Community</a></li>
+      </ul>
+      <div>
+        <p class="footer-address">Paul Bennett · Studio 165644 · PO Box 7169 · Poole · BH15 9EL</p>
+        <p class="footer-address"><a href="mailto:paul@pilgrimsoul.net">paul@pilgrimsoul.net</a></p>
+        <p class="footer-copy">© 2026 Pilgrim Soul — pilgrimsoul.net</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://krgjijjxakqrtqrvitex.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_J2rru9fHkestytiZful4WQ_QoLkEb0V';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const BLOCKED = ['spam','fuck','shit','cunt','nigger','faggot','whore','bastard','asshole','dick','pussy','cock','bitch','viagra','casino','bitcoin','crypto','click here','buy now','free money','make money','mlm','affiliate'];
+    function isFlagged(text) { const lower = text.toLowerCase(); return BLOCKED.some(w => lower.includes(w)); }
+    function isRateLimited() { const key = 'ps_comment_ts'; const last = parseInt(localStorage.getItem(key) || '0'); const now = Date.now(); if (now - last < 60000) return true; localStorage.setItem(key, now.toString()); return false; }
+    function fmtDate(iso) { const d = new Date(iso); const months = ['January','February','March','April','May','June','July','August','September','October','November','December']; return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear(); }
+    async function submitComment(parentId = null, formEl = null) {
+      const isReply = !!parentId;
+      const nameEl = isReply ? formEl.querySelector('.reply-name') : document.getElementById('comment-name');
+      const locationEl = isReply ? formEl.querySelector('.reply-location') : document.getElementById('comment-location');
+      const bodyEl = isReply ? formEl.querySelector('.reply-body') : document.getElementById('comment-body');
+      const btn = isReply ? formEl.querySelector('.btn-submit') : document.getElementById('submitBtn');
+      const statusEl = isReply ? formEl.querySelector('.reply-status') : document.getElementById('formStatus');
+      const name = nameEl.value.trim(); const body = bodyEl.value.trim(); const location = locationEl ? locationEl.value.trim() : '';
+      statusEl.className = 'form-status'; statusEl.textContent = '';
+      if (!name) { statusEl.textContent = 'Please leave your name.'; statusEl.className = 'form-status error'; return; }
+      if (name.length < 2) { statusEl.textContent = 'Name is too short.'; statusEl.className = 'form-status error'; return; }
+      if (!body) { statusEl.textContent = 'Please write something before submitting.'; statusEl.className = 'form-status error'; return; }
+      if (body.length < 10) { statusEl.textContent = 'Say a little more — ten characters at least.'; statusEl.className = 'form-status error'; return; }
+      if (isRateLimited()) { statusEl.textContent = 'Please wait a moment before leaving another comment.'; statusEl.className = 'form-status error'; return; }
+      if (isFlagged(name) || isFlagged(body)) { statusEl.textContent = 'That comment cannot be submitted. Please keep things kind.'; statusEl.className = 'form-status error'; return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+      const { error } = await sb.from('comments').insert([{ name: name.substring(0,80), body: body.substring(0,1200), location: location.substring(0,100) || null, parent_id: parentId || null, approved: false }]);
+      if (error) { statusEl.textContent = 'Something went wrong. Please try again.'; statusEl.className = 'form-status error'; btn.disabled = false; btn.textContent = isReply ? 'Send reply' : 'Leave a word'; return; }
+      statusEl.textContent = 'Your words have been received. They will appear here once read — usually within a day or two. Thank you for passing through.';
+      statusEl.className = 'form-status success'; nameEl.value = ''; bodyEl.value = '';
+      if (locationEl) locationEl.value = ''; btn.disabled = false; btn.textContent = isReply ? 'Send reply' : 'Leave a word';
+      if (isReply) { setTimeout(() => { formEl.classList.remove('open'); statusEl.textContent = ''; }, 3000); }
+    }
+    function escHtml(str) { return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+    function toggleReply(id) { const el = document.getElementById(id); if (el) el.classList.toggle('open'); }
+    function renderComments(comments) {
+      const container = document.getElementById('commentsList');
+      const roots = comments.filter(c => !c.parent_id); const replies = comments.filter(c => c.parent_id);
+      if (!roots.length) { container.innerHTML = '<p class="comments-empty">The thread is waiting for its first word. Be the first to leave a mark on the path.</p>'; return; }
+      container.innerHTML = roots.map(root => {
+        const rootReplies = replies.filter(r => r.parent_id === root.id);
+        const replyHtml = rootReplies.map(r => `<div class="comment-card is-reply"><div class="comment-meta"><span class="comment-name">${escHtml(r.name)}${r.location ? ' · <span style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:0.85rem;letter-spacing:0;text-transform:none;color:var(--text-muted);">' + escHtml(r.location) + '</span>' : ''}</span><span class="comment-date">${fmtDate(r.created_at)}</span></div><p class="comment-body">${escHtml(r.body)}</p></div>`).join('');
+        return `<div class="comment-thread"><div class="comment-card"><div class="comment-meta"><span class="comment-name">${escHtml(root.name)}${root.location ? ' · <span style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:0.85rem;letter-spacing:0;text-transform:none;color:var(--text-muted);">' + escHtml(root.location) + '</span>' : ''}</span><span class="comment-date">${fmtDate(root.created_at)}</span></div><p class="comment-body">${escHtml(root.body)}</p><button class="reply-btn" onclick="toggleReply('reply-${root.id}')">Reply</button><div class="reply-form-wrap" id="reply-${root.id}"><div class="form-row"><div class="form-field"><label>Your name</label><input type="text" class="reply-name" placeholder="Your name" maxlength="80"></div><div class="form-field"><label>Where you are (optional)</label><input type="text" class="reply-location" placeholder="A place…" maxlength="100"></div></div><div class="form-field form-full" style="margin-bottom:1rem;"><label>Your reply</label><textarea class="reply-body" placeholder="Your reply…" maxlength="1200" style="min-height:90px;"></textarea></div><div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;"><button class="btn-submit" onclick="submitComment('${root.id}', document.getElementById('reply-${root.id}'))">Send reply</button><button class="reply-cancel" onclick="toggleReply('reply-${root.id}')">Cancel</button></div><div class="reply-status form-status" style="margin-top:0.75rem;"></div></div></div>${replyHtml}</div>`;
+      }).join('');
+    }
+    async function loadComments() {
+      const { data, error } = await sb.from('comments').select('*').eq('approved', true).order('created_at', { ascending: true });
+      if (error) { document.getElementById('commentsList').innerHTML = '<p class="comments-empty">The thread is resting. Try again shortly.</p>'; return; }
+      renderComments(data || []);
+    }
+    loadComments();
+    const toggle = document.getElementById('navToggle'); const navLinks = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

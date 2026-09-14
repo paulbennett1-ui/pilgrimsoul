@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Directory — Pilgrim Soul</title>
+  <meta name="description" content="A curated gathering of the finest resources for walkers, seekers, makers and wanderers. Sacred sites, pilgrimage, vanlife, craft, wild food, good news and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2210488');
+  </script>
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.25);
+      --cream: #F5EFE4; --cream-dim: rgba(245,239,228,0.75);
+      --dark: #0E0D0B; --dark-mid: #1A1915; --dark-warm: #221F1A;
+      --text-body: #C8BFA8; --text-muted: #7A7368;
+      --border: rgba(201,168,76,0.12);
+      --card-bg: rgba(255,255,255,0.03);
+      --card-hover: rgba(201,168,76,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); overflow-x: hidden; }
+
+
+    .page-hero { position: relative; height: 70vh; min-height: 520px; display: flex; align-items: flex-end; overflow: hidden; }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(14,13,11,0.35) 0%, rgba(14,13,11,0.2) 35%, rgba(14,13,11,0.82) 72%, rgba(14,13,11,1) 100%),
+        url('images/Epic Red and Blue sky at sea.jpg') center/cover no-repeat;
+      animation: slowdrift 22s ease-in-out infinite alternate;
+    }
+    @keyframes slowdrift { from { transform: scale(1.04) translateY(0); } to { transform: scale(1.06) translateY(-1.2%); } }
+    .page-hero-content { position: relative; padding: 0 2rem 4rem; max-width: 760px; margin: 0 auto; width: 100%; animation: fadeUp 1.6s ease forwards; opacity: 0; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .page-eyebrow { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1rem; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1.1; color: var(--cream); margin-bottom: 1rem; letter-spacing: 0.02em; }
+    .page-intro { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-body); line-height: 1.75; max-width: 560px; }
+    .gold-rule { width: 40px; height: 1px; background: var(--gold); margin: 1.25rem 0; opacity: 0.5; }
+
+    .directory-wrapper { display: flex; max-width: 1200px; margin: 0 auto; padding: 0 2rem 6rem; }
+    .dir-sidebar { width: 220px; flex-shrink: 0; padding-top: 3.5rem; }
+    .sidebar-inner { position: sticky; top: 90px; }
+    .sidebar-label { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-bottom: 1rem; display: block; }
+    .sidebar-    .sidebar-nav li { margin-bottom: 0.15rem; }
+    .sidebar-nav a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--text-muted); text-decoration: none; transition: color 0.2s; display: block; padding: 0.3rem 0 0.3rem 0.8rem; border-left: 1px solid transparent; }
+    .sidebar-nav a:hover { color: var(--gold); border-left-color: var(--gold-dim); }
+
+    .dir-main { flex: 1; padding-left: 3.5rem; padding-top: 3.5rem; min-width: 0; }
+    .dir-section { margin-bottom: 4rem; scroll-margin-top: 90px; }
+    .section-header { display: flex; align-items: baseline; gap: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.9rem; margin-bottom: 1.5rem; }
+    .section-title { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .section-count { font-family: 'Lato', sans-serif; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; }
+    .sub-label { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin: 1.8rem 0 0.8rem; opacity: 0.7; }
+
+    .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.5rem; }
+    .link-card { display: block; text-decoration: none; padding: 0.9rem 1.1rem; background: var(--card-bg); border: 1px solid rgba(201,168,76,0.08); border-radius: 2px; transition: background 0.2s, border-color 0.2s, transform 0.15s; }
+    .link-card:hover { background: var(--card-hover); border-color: rgba(201,168,76,0.22); transform: translateY(-1px); }
+    .link-name { font-family: 'Lato', sans-serif; font-weight: 400; font-size: 0.85rem; color: var(--cream); margin-bottom: 0.25rem; letter-spacing: 0.02em; }
+    .link-desc { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; }
+    .link-url { font-family: 'Lato', sans-serif; font-size: 0.65rem; color: var(--gold); opacity: 0.5; margin-top: 0.4rem; letter-spacing: 0.04em; }
+
+    .help-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.5rem; }
+    .link-card.help-card { border-color: rgba(201,168,76,0.15); background: rgba(201,168,76,0.04); }
+    .link-card.help-card .link-desc { color: var(--text-body); }
+
+    .own-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .own-card { display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; padding: 0.55rem 1.1rem; border: 1px solid rgba(201,168,76,0.25); border-radius: 1px; font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); transition: background 0.2s, border-color 0.2s; }
+    .own-card:hover { background: rgba(201,168,76,0.08); border-color: var(--gold); }
+
+    .suggest-section { margin-top: 5rem; padding: 3rem; border: 1px solid rgba(201,168,76,0.15); border-radius: 2px; background: rgba(255,255,255,0.02); text-align: center; }
+    .suggest-eyebrow { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1rem; }
+    .suggest-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.9rem; color: var(--cream); margin-bottom: 0.7rem; }
+    .suggest-body { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 460px; margin: 0 auto 2rem; }
+    .suggest-form { max-width: 520px; margin: 0 auto; text-align: left; }
+    .form-row { margin-bottom: 1rem; }
+    .form-row label { display: block; font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .form-row input, .form-row select, .form-row textarea { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.18); border-radius: 1px; padding: 0.65rem 0.85rem; font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.85rem; color: var(--cream); outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+    .form-row input::placeholder, .form-row textarea::placeholder { color: var(--text-muted); opacity: 0.6; }
+    .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: rgba(201,168,76,0.45); }
+    .form-row select option { background: #1A1915; color: var(--cream); }
+    .form-row textarea { resize: vertical; min-height: 80px; }
+    .form-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .suggest-submit { display: inline-block; font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 0.85rem 2.2rem; border: 1px solid var(--gold); color: var(--gold); background: transparent; cursor: pointer; transition: background 0.25s, color 0.25s; margin-top: 0.5rem; border-radius: 1px; }
+    .suggest-submit:hover { background: var(--gold); color: var(--dark); }
+    .suggest-note { font-family: 'Lato', sans-serif; font-size: 0.72rem; font-weight: 300; color: var(--text-muted); margin-top: 1rem; text-align: center; line-height: 1.5; }
+    .form-thanks { display: none; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-body); padding: 2rem; text-align: center; }
+
+    footer { background: var(--dark); border-top: 1px solid var(--border); padding: 3.5rem 2rem; }
+    .footer-inner { max-width: 1020px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+    .footer-logo { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold); opacity: 0.75; text-decoration: none; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); }
+
+    @media (max-width: 900px) { .dir-sidebar { display: none; } .dir-main { padding-left: 0; } .directory-wrapper { padding: 0 1.5rem 4rem; } }
+    @media (max-width: 600px) {
+      .nav-links.open { display: flex; }
+      .page-hero-content { padding: 0 2rem 4rem; }
+      .link-grid { grid-template-columns: 1fr; } .form-two-col { grid-template-columns: 1fr; } .suggest-section { padding: 2rem 1.5rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.1rem 3rem; display: flex; justify-content: space-between; align-items: center; background: #1A1915; border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .nav-logo { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 0.28em; color: var(--gold); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--cream); }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; } .nav-logo { font-size: 0.85rem; }
+      .nav-links { display: none; position: fixed; inset: 0; background: rgba(14,13,11,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 99; }
+      .nav-links.open { display: flex; } .nav-links a { font-size: 1rem; letter-spacing: 0.2em; } .nav-toggle { display: flex; z-index: 101; }
+    }
+</style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Pilgrim Soul</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="dispatch.html">Dispatch</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="havens.html">Havens</a></li>
+      <li><a href="vision-fire.html">Vision Fire</a></li>
+      <li><a href="forum.html">Forum</a></li>
+      <li><a href="links.html" class="active">Directory</a></li>
+      <li><a href="community.html">Community</a></li>
+    </ul>
+  </nav>
+
+<header class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content">
+    <span class="page-eyebrow">A Curated Resource</span>
+    <h1 class="page-title">The Directory</h1>
+    <div class="gold-rule"></div>
+    <p class="page-intro">A gathering of sources worth your time. Sacred sites, pilgrimage routes, vanlife wisdom, wild food, traditional craft, good news, and more. Slowly built, carefully chosen.</p>
+  </div>
+</header>
+
+<div class="directory-wrapper">
+  <aside class="dir-sidebar">
+    <div class="sidebar-inner">
+      <span class="sidebar-label">Sections</span>
+      <ul class="sidebar-nav">
+        <li><a href="#pilgrim-soul">Pilgrim Soul</a></li>
+        <li><a href="#sacred-sites">Sacred Sites</a></li>
+        <li><a href="#mythology">Mythology &amp; Folklore</a></li>
+        <li><a href="#archaeology">Archaeology</a></li>
+        <li><a href="#lost-civilisations">Lost Civilisations</a></li>
+        <li><a href="#nature-writing">Landscape &amp; Nature</a></li>
+        <li><a href="#spiritual">Spiritual Practice</a></li>
+        <li><a href="#pilgrimage">Pilgrimage &amp; Walking</a></li>
+        <li><a href="#vanlife">Van Life &amp; The Road</a></li>
+        <li><a href="#good-news">Good News</a></li>
+        <li><a href="#skills">Skills &amp; Preparation</a></li>
+        <li><a href="#ai-learning">AI Learning</a></li>
+        <li><a href="#creative">Creative Practice</a></li>
+        <li><a href="#charities">Charities &amp; Causes</a></li>
+        <li><a href="#need-help">Need Help?</a></li>
+        <li><a href="#suggest">Suggest a Link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main class="dir-main">
+
+    <section class="dir-section" id="pilgrim-soul">
+      <div class="section-header"><h2 class="section-title">Pilgrim Soul</h2><span class="section-count">Find me here</span></div>
+      <div class="own-grid">
+        <a href="https://thepilgrimsdispatch.substack.com" target="_blank" rel="noopener" class="own-card">The Dispatch &#x2197;</a>
+        <a href="https://discord.gg/qgJCYvkD" target="_blank" rel="noopener" class="own-card">Discord &#x2197;</a>
+        <a href="https://bennettpaul4.gumroad.com" target="_blank" rel="noopener" class="own-card">Shop &#x2197;</a>
+        <a href="https://www.reverbnation.com/pilgrimsoul" target="_blank" rel="noopener" class="own-card">ReverbNation &#x2197;</a>
+        <a href="https://www.youtube.com/@pilgrimsoulsearchers" target="_blank" rel="noopener" class="own-card">YouTube &#x2197;</a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="sacred-sites">
+      <div class="section-header"><h2 class="section-title">Sacred Sites &amp; Landscape</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://www.megalithic.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Megalithic Portal</div><div class="link-desc">The definitive crowd-sourced database of prehistoric sites across Britain and Ireland. Searchable, mapped, extraordinary.</div><div class="link-url">megalithic.co.uk</div></a>
+        <a href="https://www.themodernantiquarian.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Modern Antiquarian</div><div class="link-desc">Julian Cope's vast, opinionated, deeply felt atlas of megalithic Britain. Thousands of sites with photographs, accounts and atmosphere.</div><div class="link-url">themodernantiquarian.com</div></a>
+        <a href="https://www.ancient-origins.net" target="_blank" rel="noopener" class="link-card"><div class="link-name">Ancient Origins</div><div class="link-desc">Archaeology, ancient history and sacred sites from around the world. Serious depth, regularly updated.</div><div class="link-url">ancient-origins.net</div></a>
+        <a href="https://www.sacredsites.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Sacred Sites — Martin Gray</div><div class="link-desc">Global pilgrimage photography project. Visually stunning, spiritually rich. A life's work in images.</div><div class="link-url">sacredsites.com</div></a>
+        <a href="https://heritagecalling.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Heritage Calling</div><div class="link-desc">Historic England's own blog. Accessible guides to prehistoric monuments and lesser-known ancient sites.</div><div class="link-url">heritagecalling.com</div></a>
+        <a href="https://www.sacredsitesuk.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Sacred Sites UK</div><div class="link-desc">Guided tours and deep knowledge of Britain's sacred landscape. Well chosen routes and genuine reverence.</div><div class="link-url">sacredsitesuk.com</div></a>
+        <a href="https://www.holywell.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Holy Wells of Britain</div><div class="link-desc">The definitive guide to Britain's sacred springs and holy wells. Hundreds of sites mapped and described with care.</div><div class="link-url">holywell.org.uk</div></a>
+        <a href="https://www.avebury.net" target="_blank" rel="noopener" class="link-card"><div class="link-name">Avebury.net</div><div class="link-desc">Comprehensive guide to the Avebury complex — the stones, the landscape, the archaeology, and the living calendar of events.</div><div class="link-url">avebury.net</div></a>
+        <a href="https://www.invisibletemple.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Invisible Temple</div><div class="link-desc">Freddy Silva's deep research into sacred sites, ley alignments, ancient temples, and the encoded geometry of sacred landscape.</div><div class="link-url">invisibletemple.com</div></a>
+        <a href="https://mythsmap.english-heritage.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">English Heritage — Myths Map</div><div class="link-desc">An interactive map of English myth, legend and folklore tied to real places. Genuinely fascinating to explore.</div><div class="link-url">mythsmap.english-heritage.org.uk</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="mythology">
+      <div class="section-header"><h2 class="section-title">Mythology &amp; Folklore</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://oldechronicles.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Olde Chronicles</div><div class="link-desc">Stories, creatures and legends of England, Scotland and Wales, retold with care and atmosphere. A hidden gem.</div><div class="link-url">oldechronicles.org.uk</div></a>
+        <a href="https://www.sacred-texts.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Sacred Texts Archive</div><div class="link-desc">The internet's largest free library of mythology, folklore and spiritual texts from around the world. Vast.</div><div class="link-url">sacred-texts.com</div></a>
+        <a href="https://mythopedia.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Mythopedia</div><div class="link-desc">Clean, well-researched mythology encyclopaedia covering Celtic, Norse, Greek and beyond.</div><div class="link-url">mythopedia.com</div></a>
+        <a href="https://camelotproject.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Camelot Project</div><div class="link-desc">University of Rochester's deep archive of Arthurian texts, bibliographies and lore. Scholarly and comprehensive.</div><div class="link-url">camelotproject.org</div></a>
+        <a href="https://www.fairyist.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Fairy Investigation Society</div><div class="link-desc">Serious modern research into fairy and folk encounters. Stranger than it sounds. Well worth an afternoon.</div><div class="link-url">fairyist.com</div></a>
+        <a href="https://folklorethursday.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Folklore Thursday</div><div class="link-desc">Weekly folklore from around the world — articles, books, events and a generous community of scholars and enthusiasts.</div><div class="link-url">folklorethursday.com</div></a>
+        <a href="https://www.thefolklorepodcast.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Folklore Podcast</div><div class="link-desc">Long-form conversations with scholars, authors and practitioners on British and world folklore. Substantial and unhurried.</div><div class="link-url">thefolklorepodcast.com</div></a>
+        <a href="https://www.celticmythpodcast.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Celtic Myth Podshow</div><div class="link-desc">Retellings of Celtic myths, legends and folklore from the British Isles and beyond. Deep respect for the tradition.</div><div class="link-url">celticmythpodcast.com</div></a>
+        <a href="https://www.thewhitegoddess.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">The White Goddess</div><div class="link-desc">Pagan, Wiccan and Celtic resource. Mythology, astrology, sabbats, and a huge library of traditional lore.</div><div class="link-url">thewhitegoddess.co.uk</div></a>
+        <a href="https://www.english-heritage.org.uk/visit/inspire-me/tellingtales/" target="_blank" rel="noopener" class="link-card"><div class="link-name">English Heritage — Telling Tales</div><div class="link-desc">Audio stories and commissioned writing on English folklore. Exceptional quality.</div><div class="link-url">english-heritage.org.uk</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="archaeology">
+      <div class="section-header"><h2 class="section-title">Archaeology &amp; Ancient History</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://www.archaeology.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Current Archaeology</div><div class="link-desc">Britain's leading archaeology magazine. New discoveries, active digs, ongoing debates. Authoritative and readable.</div><div class="link-url">archaeology.co.uk</div></a>
+        <a href="https://the-past.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Past</div><div class="link-desc">World archaeology and new thinking. Sister publication to Current Archaeology, broader in scope.</div><div class="link-url">the-past.com</div></a>
+        <a href="https://www.archaeologyuk.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">British Archaeology</div><div class="link-desc">Published by the Council for British Archaeology. The professional and public voice of the discipline.</div><div class="link-url">archaeologyuk.org</div></a>
+        <a href="https://www.archaeology.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Archaeology Magazine</div><div class="link-desc">Archaeological Institute of America. International scope, long-form features, important discoveries worldwide.</div><div class="link-url">archaeology.org</div></a>
+        <a href="https://opencontext.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Open Context</div><div class="link-desc">Free, open-access archaeological data from digs worldwide. Raw data, real research — remarkable resource.</div><div class="link-url">opencontext.org</div></a>
+        <a href="https://www.english-heritage.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">English Heritage</div><div class="link-desc">The national body for England's historic sites. Everything from Stonehenge to Roman forts, with deep research behind each.</div><div class="link-url">english-heritage.org.uk</div></a>
+        <a href="https://finds.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Portable Antiquities Scheme</div><div class="link-desc">National database of archaeological finds discovered by the public. Every field, every beach — remarkable stuff surfaces.</div><div class="link-url">finds.org.uk</div></a>
+        <a href="https://www.atlasobscura.com/categories/ancient" target="_blank" rel="noopener" class="link-card"><div class="link-name">Atlas Obscura — Ancient Sites</div><div class="link-desc">The world's most surprising ancient places, written with wonder and rigour. Infinitely browsable, reliably astonishing.</div><div class="link-url">atlasobscura.com</div></a>
+        <a href="https://historicengland.org.uk/images-books/archive/collections/aerial-photography/" target="_blank" rel="noopener" class="link-card"><div class="link-name">Historic England — Aerial Photography</div><div class="link-desc">Free access to Britain's ancient landscape seen from above. Often extraordinary.</div><div class="link-url">historicengland.org.uk</div></a>
+        <a href="https://www.britishmuseum.org/collection" target="_blank" rel="noopener" class="link-card"><div class="link-name">British Museum — Collection Online</div><div class="link-desc">Eight million objects, free to explore. Search by period, culture, material. The deep record of human civilisation.</div><div class="link-url">britishmuseum.org</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="lost-civilisations">
+      <div class="section-header"><h2 class="section-title">Lost Civilisations &amp; Ancient Mysteries</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://grahamhancock.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Graham Hancock</div><div class="link-desc">The definitive independent researcher into lost civilisations. Fingerprints of the Gods, Magicians of the Gods, Ancient Apocalypse. Start here.</div><div class="link-url">grahamhancock.com</div></a>
+        <a href="https://randallcarlson.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Randall Carlson</div><div class="link-desc">Geologist, sacred geometrist and catastrophist researcher. Extraordinary depth on cosmic cycles and ancient cataclysm.</div><div class="link-url">randallcarlson.com</div></a>
+        <a href="https://spacefed.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">International Space Federation</div><div class="link-desc">Nassim Haramein's organisation advancing unified physics and quantum vacuum energy. The free foundation course is genuinely mind-expanding.</div><div class="link-url">spacefed.com</div></a>
+        <a href="https://nassimharamein.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Nassim Haramein</div><div class="link-desc">Videos, lectures and papers on unified field theory. A new scientific framework for how reality is structured.</div><div class="link-url">nassimharamein.com</div></a>
+        <a href="https://www.robertbauval.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Robert Bauval</div><div class="link-desc">Orion correlation theory, pyramid astronomy and the hidden history of ancient Egypt. Pivotal research.</div><div class="link-url">robertbauval.co.uk</div></a>
+        <a href="https://www.andrewcollins.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Andrew Collins</div><div class="link-desc">Author and researcher on Gobekli Tepe, Cygnus mythology and pre-flood civilisations. Meticulously researched.</div><div class="link-url">andrewcollins.com</div></a>
+        <a href="https://mysteriousuniverse.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Mysterious Universe</div><div class="link-desc">Broad coverage of unexplained phenomena, ancient mysteries and fringe science. Good for discovery.</div><div class="link-url">mysteriousuniverse.org</div></a>
+        <a href="https://freddysilva.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Freddy Silva</div><div class="link-desc">Research into sacred sites, ancient temples, megalithic geometry and the hidden science of the ancient world.</div><div class="link-url">freddysilva.com</div></a>
+        <a href="https://brienfoerster.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Brien Foerster</div><div class="link-desc">Expert on megalithic construction techniques, elongated skulls, and pre-Inca civilisations. Field research and direct evidence.</div><div class="link-url">brienfoerster.com</div></a>
+        <a href="https://www.lairdscrantonresearch.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Laird Scranton</div><div class="link-desc">Deep comparative research into Dogon cosmology and its surprising parallels with physics and ancient Egyptian knowledge.</div><div class="link-url">lairdscrantonresearch.com</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="nature-writing">
+      <div class="section-header"><h2 class="section-title">Landscape &amp; Nature Writing</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://www.caughtbytheriver.net" target="_blank" rel="noopener" class="link-card"><div class="link-name">Caught by the River</div><div class="link-desc">Nature, music and literature at their intersection. River-centred but vast in scope. One of the finest things online.</div><div class="link-url">caughtbytheriver.net</div></a>
+        <a href="https://dark-mountain.net" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Dark Mountain Project</div><div class="link-desc">Radical nature writing and art for people who've stopped believing in civilisation's comforting stories. Profound.</div><div class="link-url">dark-mountain.net</div></a>
+        <a href="https://emergencemagazine.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Emergence Magazine</div><div class="link-desc">Long-form writing at the intersection of ecology, culture and spirituality. One of the most beautiful sites on the internet.</div><div class="link-url">emergencemagazine.org</div></a>
+        <a href="https://orionmagazine.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Orion Magazine</div><div class="link-desc">The gold standard in writing about the natural world. American but universal. Essential reading.</div><div class="link-url">orionmagazine.org</div></a>
+        <a href="https://www.resurgence.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Resurgence &amp; Ecologist</div><div class="link-desc">Long-running journal of ecology, art and activism. Robert Macfarlane, Nan Shepherd territory.</div><div class="link-url">resurgence.org</div></a>
+        <a href="https://www.commonground.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Common Ground</div><div class="link-desc">The organisation that coined "local distinctiveness." Culture, nature, place and the meaning of belonging.</div><div class="link-url">commonground.org.uk</div></a>
+        <a href="https://wildswimming.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Wild Swimming</div><div class="link-desc">Rivers, lakes, sea and lidos across Britain. The best guide to getting in.</div><div class="link-url">wildswimming.co.uk</div></a>
+        <a href="https://www.rewildingmagazine.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Rewilding Magazine</div><div class="link-desc">Stories from the frontline of ecological restoration. Beautiful, hopeful, necessary. The long view in practice.</div><div class="link-url">rewildingmagazine.com</div></a>
+        <a href="https://www.naturalnavigation.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Natural Navigation</div><div class="link-desc">Tristan Gooley's site. Reading land, sky, plants and stars to find your way. Remarkable.</div><div class="link-url">naturalnavigation.com</div></a>
+        <a href="https://www.countryfile.com/nature" target="_blank" rel="noopener" class="link-card"><div class="link-name">BBC Countryfile — Nature</div><div class="link-desc">Accessible nature writing, seasonal guides and wildlife features. A reliable companion for the British landscape.</div><div class="link-url">countryfile.com</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="spiritual">
+      <div class="section-header"><h2 class="section-title">Spiritual Practice</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://www.lionsroar.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Lion's Roar</div><div class="link-desc">Buddhist wisdom for everyday life. Open, non-dogmatic, beautifully written. A calm place on the internet.</div><div class="link-url">lionsroar.com</div></a>
+        <a href="https://gratefulness.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Gratefulness.org</div><div class="link-desc">Brother David Steindl-Rast's contemplative project. Simple, profound, daily practice. A quiet well.</div><div class="link-url">gratefulness.org</div></a>
+        <a href="https://cac.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Centre for Action &amp; Contemplation</div><div class="link-desc">Richard Rohr's centre. Christian mysticism, universal application. For those who want the depths without the dogma.</div><div class="link-url">cac.org</div></a>
+        <a href="https://www.sheldrake.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Rupert Sheldrake</div><div class="link-desc">Morphic resonance, the nature of consciousness, science and spirituality at the frontier. Essential, unsettling, freeing.</div><div class="link-url">sheldrake.org</div></a>
+        <a href="https://www.schumachercollege.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Schumacher College</div><div class="link-desc">Transformative learning in ecology, sustainability and deep questioning. Where the inner and outer converge.</div><div class="link-url">schumachercollege.org.uk</div></a>
+        <a href="https://www.soundstrue.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Sounds True</div><div class="link-desc">Teachings and practices from the world's great spiritual traditions. Audio, courses and books of real depth.</div><div class="link-url">soundstrue.com</div></a>
+        <a href="https://plumvillage.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Plum Village</div><div class="link-desc">Thich Nhat Hanh's community. Mindfulness teachings, guided meditations, retreats and free resources of lasting quality.</div><div class="link-url">plumvillage.org</div></a>
+        <a href="https://www.gangaji.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Gangaji</div><div class="link-desc">Non-dual teachings and satsang. A direct invitation to recognise what is already here. Gentle, clear and transformative.</div><div class="link-url">gangaji.org</div></a>
+        <a href="https://www.sacredearth.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Sacred Earth</div><div class="link-desc">Earth-based spirituality, plant medicine, shamanic practice and the living world as teacher.</div><div class="link-url">sacredearth.com</div></a>
+        <a href="https://www.contemplativeoutreach.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Contemplative Outreach</div><div class="link-desc">Thomas Keating's centring prayer community. The Christian mystical tradition made accessible and practical.</div><div class="link-url">contemplativeoutreach.org</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="pilgrimage">
+      <div class="section-header"><h2 class="section-title">Pilgrimage &amp; Walking</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://www.britishpilgrimage.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">British Pilgrimage Trust</div><div class="link-desc">The single best resource for pilgrimage in Britain. Routes, ethos, community. Modernising the ancient tradition.</div><div class="link-url">britishpilgrimage.org</div></a>
+        <a href="https://www.nationaltrail.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">National Trails</div><div class="link-desc">Every long-distance trail in England and Wales. Maps, routes, accommodation, practical information.</div><div class="link-url">nationaltrail.co.uk</div></a>
+        <a href="https://slowways.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Slow Ways</div><div class="link-desc">Citizen-led project mapping walking routes between every settlement in Britain. Still growing. Quietly remarkable.</div><div class="link-url">slowways.org</div></a>
+        <a href="https://www.ramblers.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Ramblers</div><div class="link-desc">Britain's walking charity. Routes, access rights, campaigning. The practical backbone of walking in this country.</div><div class="link-url">ramblers.org.uk</div></a>
+        <a href="https://www.ldwa.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Long Distance Walkers Association</div><div class="link-desc">The community for serious long-distance walkers. Events, challenge walks, routes and a welcoming network.</div><div class="link-url">ldwa.org.uk</div></a>
+        <a href="https://sacredfootprints.com/uk-pilgrimage-routes/" target="_blank" rel="noopener" class="link-card"><div class="link-name">Sacred Footprints</div><div class="link-desc">Guides to UK pilgrimage routes written with genuine spiritual depth. From Lindisfarne to St Michael's Mount.</div><div class="link-url">sacredfootprints.com</div></a>
+        <a href="https://www.santiago-compostela.net" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Camino de Santiago</div><div class="link-desc">The great European pilgrimage. Routes, preparation, pilgrim stories and the spirit of the road.</div><div class="link-url">santiago-compostela.net</div></a>
+        <a href="https://www.viefrancigena.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Via Francigena</div><div class="link-desc">Canterbury to Rome — the ancient pilgrim route through France, Switzerland and Italy.</div><div class="link-url">viefrancigena.com</div></a>
+        <a href="https://tgo-magazine.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Great Outdoors Magazine</div><div class="link-desc">Britain's finest hill walking and backpacking magazine. Routes, gear, culture, the mountains taken seriously.</div><div class="link-url">tgo-magazine.co.uk</div></a>
+        <a href="https://www.walkingbritain.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Walking Britain</div><div class="link-desc">Independently written walking guides for every part of Britain. Practical routes with proper descriptions.</div><div class="link-url">walkingbritain.co.uk</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="vanlife">
+      <div class="section-header"><h2 class="section-title">Van Life &amp; The Road</h2><span class="section-count">11 links</span></div>
+      <p class="sub-label">Finding a place to stop</p>
+      <div class="link-grid">
+        <a href="https://www.searchforsites.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">SearchForSites</div><div class="link-desc">The most comprehensive UK and European campervan stopover database. Community-updated, filterable. Free to use.</div><div class="link-url">searchforsites.co.uk</div></a>
+        <a href="https://park4night.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Park4Night</div><div class="link-desc">Community-driven global map of wild camping, pub stopovers and official sites. Photos, reviews, GPS. Essential.</div><div class="link-url">park4night.com</div></a>
+        <a href="https://www.britstops.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Britstops</div><div class="link-desc">UK pubs, farm shops, vineyards and breweries that welcome overnight campervan stays.</div><div class="link-url">britstops.com</div></a>
+        <a href="https://www.campercontact.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Campercontact</div><div class="link-desc">Official motorhome aires and service points across Europe. Complements Park4Night for official spots.</div><div class="link-url">campercontact.com</div></a>
+        <a href="https://www.pitchup.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Pitchup</div><div class="link-desc">Book independent and smaller campsites across the UK. Good value, easy to filter — often finds the hidden gems.</div><div class="link-url">pitchup.com</div></a>
+        <a href="https://www.campra.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Campra</div><div class="link-desc">Community mapping for responsible wild camping in Scotland under the Land Reform Act. Freedom, mapped.</div><div class="link-url">campra.co.uk</div></a>
+        <a href="https://www.ioverlander.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">iOverlander</div><div class="link-desc">Global overlanding community map. Brilliant for off-the-beaten-track spots and honest traveller reviews.</div><div class="link-url">ioverlander.com</div></a>
+      </div>
+      <p class="sub-label">Community &amp; knowledge</p>
+      <div class="link-grid">
+        <a href="https://www.vanlife.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Van Life UK</div><div class="link-desc">The UK home of vanlife. Conversion guides, electrics, water systems, insurance. Practical and comprehensive.</div><div class="link-url">vanlife.uk</div></a>
+        <a href="https://www.campervanbible.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Campervan Bible</div><div class="link-desc">Community, guides and the full UK vanlife ecosystem. One of the most trusted voices in the space.</div><div class="link-url">campervanbible.co.uk</div></a>
+        <a href="https://www.vanlove.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Vanlove</div><div class="link-desc">UK vanlife festival, community and resources. The social heartbeat of life on the road.</div><div class="link-url">vanlove.com</div></a>
+        <a href="https://www.wandering-bird.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Wandering Bird</div><div class="link-desc">Honest motorhome travel guides to the UK and Europe. Practical, tested, generous with information.</div><div class="link-url">wandering-bird.com</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="good-news">
+      <div class="section-header"><h2 class="section-title">Current Affairs — The Good News</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://www.positive.news" target="_blank" rel="noopener" class="link-card"><div class="link-name">Positive News</div><div class="link-desc">The UK's own good news magazine. Proper journalism, proper optimism. Independent and reader-funded.</div><div class="link-url">positive.news</div></a>
+        <a href="https://reasonstobecheerful.world" target="_blank" rel="noopener" class="link-card"><div class="link-name">Reasons to Be Cheerful</div><div class="link-desc">Founded by David Byrne. Solutions-focused, intelligent, beautifully curated. One of the best sites on the internet.</div><div class="link-url">reasonstobecheerful.world</div></a>
+        <a href="https://www.goodgoodgood.co" target="_blank" rel="noopener" class="link-card"><div class="link-name">Good Good Good</div><div class="link-desc">Warm, purposeful good news. Daily email, print newspaper, genuine community of people choosing hope.</div><div class="link-url">goodgoodgood.co</div></a>
+        <a href="https://www.optimistdaily.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Optimist Daily</div><div class="link-desc">Solutions journalism, daily. Climate, health, culture — all through a constructive lens.</div><div class="link-url">optimistdaily.com</div></a>
+        <a href="https://www.dailygood.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">DailyGood</div><div class="link-desc">Twenty-five years of a daily email that inspires. Generous, quiet, consistently trustworthy.</div><div class="link-url">dailygood.org</div></a>
+        <a href="https://futurecrun.ch" target="_blank" rel="noopener" class="link-card"><div class="link-name">Future Crunch</div><div class="link-desc">Fortnightly dispatches on human progress in science, technology and global wellbeing. Optimism rooted in data.</div><div class="link-url">futurecrun.ch</div></a>
+        <a href="https://yesmagazine.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Yes! Magazine</div><div class="link-desc">American independent media covering justice, ecology and the practical means of a better world. Long-form, substantive.</div><div class="link-url">yesmagazine.org</div></a>
+        <a href="https://grist.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Grist</div><div class="link-desc">Environmental journalism focused on climate solutions and the people building them. Rigorous and accessible.</div><div class="link-url">grist.org</div></a>
+        <a href="https://www.solutionsjournalism.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Solutions Journalism Network</div><div class="link-desc">Training journalists to report on what's working, not just what's broken.</div><div class="link-url">solutionsjournalism.org</div></a>
+        <a href="https://www.theupside.today" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Upside</div><div class="link-desc">The Guardian's good news weekly. Curated from its own journalism — the stories that restore rather than deplete.</div><div class="link-url">theupside.today</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="skills">
+      <div class="section-header"><h2 class="section-title">Skills &amp; Preparation</h2><span class="section-count">20 links</span></div>
+      <p class="sub-label">Bushcraft &amp; wilderness</p>
+      <div class="link-grid">
+        <a href="https://paulkirtley.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Paul Kirtley</div><div class="link-desc">The gold standard in UK bushcraft education. Articles, podcast, online courses. Start here.</div><div class="link-url">paulkirtley.co.uk</div></a>
+        <a href="https://frontierbushcraft.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Frontier Bushcraft</div><div class="link-desc">Paul Kirtley's school. Field courses, navigation, wilderness first aid. Excellent instruction.</div><div class="link-url">frontierbushcraft.com</div></a>
+        <a href="https://www.woodcraftschool.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Woodcraft School</div><div class="link-desc">Woodland skills, wild food, heritage crafts and deep nature connection. Beautifully rooted approach.</div><div class="link-url">woodcraftschool.co.uk</div></a>
+        <a href="https://www.wildhuman.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Wild Human</div><div class="link-desc">Immersive wilderness expeditions and bushcraft in the Lake District. Small groups, expert instruction.</div><div class="link-url">wildhuman.com</div></a>
+        <a href="https://www.folkschool.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Wilderness Folk School</div><div class="link-desc">Traditional crafts, canoe building, nature education in Scotland. Ancient skills for the modern pilgrim.</div><div class="link-url">folkschool.uk</div></a>
+      </div>
+      <p class="sub-label">Foraging &amp; wild food</p>
+      <div class="link-grid">
+        <a href="https://www.wildfooduk.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Wild Food UK</div><div class="link-desc">The UK's leading foraging resource. Hedgerow guide, plant identification, recipes and courses nationwide.</div><div class="link-url">wildfooduk.com</div></a>
+        <a href="https://www.gallowaywildfoods.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Galloway Wild Foods</div><div class="link-desc">Mark Williams' foraging site. Deep, trustworthy, beautifully written. One of the best voices in the field.</div><div class="link-url">gallowaywildfoods.com</div></a>
+        <a href="https://www.woodlandtrust.org.uk/visiting-woods/things-to-do/foraging/" target="_blank" rel="noopener" class="link-card"><div class="link-name">Woodland Trust — Foraging</div><div class="link-desc">Month-by-month seasonal guide to what's available and how to prepare it. Safe, thorough, free.</div><div class="link-url">woodlandtrust.org.uk</div></a>
+        <a href="https://totallywilduk.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Totally Wild UK</div><div class="link-desc">Foraging courses and forage-and-cook days across the UK. Good for hands-on learning.</div><div class="link-url">totallywilduk.co.uk</div></a>
+        <a href="https://www.associationofforagers.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Association of Foragers</div><div class="link-desc">The professional body. Use to find qualified instructors near you. Standards and ethics for the discipline.</div><div class="link-url">associationofforagers.com</div></a>
+      </div>
+      <p class="sub-label">Navigation &amp; outdoor qualifications</p>
+      <div class="link-grid">
+        <a href="https://www.ordnancesurvey.co.uk/leisure/learning" target="_blank" rel="noopener" class="link-card"><div class="link-name">Ordnance Survey — Learn to Navigate</div><div class="link-desc">Map reading, compass work and navigation basics from the source. Free and authoritative.</div><div class="link-url">ordnancesurvey.co.uk</div></a>
+        <a href="https://what3words.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">What3Words</div><div class="link-desc">Divides the world into 3-metre squares with unique addresses. Genuinely useful for remote travel and emergencies.</div><div class="link-url">what3words.com</div></a>
+        <a href="https://www.mountain-training.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Mountain Training</div><div class="link-desc">The awarding body for Mountain Leader, climbing instructor and walking qualifications across the UK.</div><div class="link-url">mountain-training.org</div></a>
+        <a href="https://www.thebmc.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">British Mountaineering Council</div><div class="link-desc">Climbing, mountaineering and hill walking. Qualifications, safety, community. The national body.</div><div class="link-url">thebmc.co.uk</div></a>
+        <a href="https://www.archerygb.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Archery GB</div><div class="link-desc">The national governing body for archery. Find clubs, courses and coaching pathways anywhere in Britain.</div><div class="link-url">archerygb.org</div></a>
+        <a href="https://www.glenmorelodge.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Glenmore Lodge</div><div class="link-desc">Scotland's national outdoor training centre. Mountaineering, climbing, navigation, winter skills. World class.</div><div class="link-url">glenmorelodge.org.uk</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="ai-learning">
+      <div class="section-header"><h2 class="section-title">AI Learning</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://docs.anthropic.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Anthropic — Claude Documentation</div><div class="link-desc">The official guide to working with Claude. Prompt engineering, API, best practices from the source.</div><div class="link-url">docs.anthropic.com</div></a>
+        <a href="https://learnprompting.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">Learn Prompting</div><div class="link-desc">The most comprehensive free guide to prompt engineering. Clear, practical, constantly updated. Start here.</div><div class="link-url">learnprompting.org</div></a>
+        <a href="https://www.promptingguide.ai" target="_blank" rel="noopener" class="link-card"><div class="link-name">Prompt Engineering Guide</div><div class="link-desc">Deep technical guide covering all major prompting techniques. Open source, community-maintained.</div><div class="link-url">promptingguide.ai</div></a>
+        <a href="https://www.youtube.com/@andrejkarpathy" target="_blank" rel="noopener" class="link-card"><div class="link-name">Andrej Karpathy — YouTube</div><div class="link-desc">Neural networks and AI fundamentals explained with rare clarity by one of the field's great educators. Free.</div><div class="link-url">youtube.com</div></a>
+        <a href="https://www.fast.ai" target="_blank" rel="noopener" class="link-card"><div class="link-name">fast.ai</div><div class="link-desc">Practical deep learning for everyone. Free courses, no maths degree required. Genuinely groundbreaking.</div><div class="link-url">fast.ai</div></a>
+        <a href="https://www.futuretools.io" target="_blank" rel="noopener" class="link-card"><div class="link-name">FutureTools</div><div class="link-desc">Curated directory of AI tools across every category. Useful for discovering what's out there.</div><div class="link-url">futuretools.io</div></a>
+        <a href="https://every.to" target="_blank" rel="noopener" class="link-card"><div class="link-name">Every.to</div><div class="link-desc">Essays and practical guides on working with AI across creative and business contexts. Thoughtful and readable.</div><div class="link-url">every.to</div></a>
+        <a href="https://substack.com/@ethanmollick" target="_blank" rel="noopener" class="link-card"><div class="link-name">Ethan Mollick — One Useful Thing</div><div class="link-desc">The most grounded, practical AI writer working today. A professor who actually uses the tools and tells the truth about them.</div><div class="link-url">substack.com</div></a>
+        <a href="https://simonwillison.net" target="_blank" rel="noopener" class="link-card"><div class="link-name">Simon Willison's Weblog</div><div class="link-desc">Developer and AI researcher writing about what's actually happening in LLMs. Technical but accessible. Highly trusted.</div><div class="link-url">simonwillison.net</div></a>
+        <a href="https://www.lennysnewsletter.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Lenny's Newsletter</div><div class="link-desc">Product and AI from a practitioner's perspective. Practical, specific, worth the weekly read.</div><div class="link-url">lennysnewsletter.com</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="creative">
+      <div class="section-header"><h2 class="section-title">Creative Practice</h2><span class="section-count">16 links</span></div>
+      <p class="sub-label">Music &amp; sound</p>
+      <div class="link-grid">
+        <a href="https://soundfly.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Soundfly</div><div class="link-desc">Music production and songwriting courses. Thoughtful, creative, made by musicians for musicians.</div><div class="link-url">soundfly.com</div></a>
+        <a href="https://www.suno.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Suno</div><div class="link-desc">AI-assisted music creation. Worth understanding and experimenting with as the tools develop.</div><div class="link-url">suno.com</div></a>
+      </div>
+      <p class="sub-label">Writing &amp; publishing</p>
+      <div class="link-grid">
+        <a href="https://www.thecreativepenn.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Creative Penn</div><div class="link-desc">Everything about writing, self-publishing and building a creative business from someone who has done it well.</div><div class="link-url">thecreativepenn.com</div></a>
+        <a href="https://reedsy.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Reedsy</div><div class="link-desc">Book editing, design and publishing community. High quality editors and designers, clear marketplace.</div><div class="link-url">reedsy.com</div></a>
+        <a href="https://seths.blog" target="_blank" rel="noopener" class="link-card"><div class="link-name">Seth Godin's Blog</div><div class="link-desc">Daily writing on creativity, work and making things that matter. Short, essential, never misses.</div><div class="link-url">seths.blog</div></a>
+        <a href="https://austinkleon.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Austin Kleon</div><div class="link-desc">Steal Like an Artist author. Short, potent writing on the creative life. Weekly newsletter worth having.</div><div class="link-url">austinkleon.com</div></a>
+        <a href="https://www.nawe.co.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">National Association of Writers in Education</div><div class="link-desc">Writing development, community and events across the UK. A professional home for writers.</div><div class="link-url">nawe.co.uk</div></a>
+      </div>
+      <p class="sub-label">Traditional craft</p>
+      <div class="link-grid">
+        <a href="https://www.heritagecrafts.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Heritage Crafts Association</div><div class="link-desc">The national body mapping and protecting endangered crafts in the UK. The gateway into this whole world.</div><div class="link-url">heritagecrafts.org.uk</div></a>
+        <a href="https://www.craftcourses.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Craft Courses</div><div class="link-desc">The UK's largest directory of craft courses. Find green woodworking, pottery, blacksmithing, basket weaving and hundreds more.</div><div class="link-url">craftcourses.com</div></a>
+        <a href="https://woodlandskillscentre.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Woodland Skills Centre</div><div class="link-desc">Basket making, green woodworking, coppice crafts and bushcraft. Courses, holidays and deep immersion.</div><div class="link-url">woodlandskillscentre.uk</div></a>
+        <a href="https://www.greenwoodguild.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Green Wood Guild</div><div class="link-desc">Chair making, pole lathe turning, spoon carving and coppice crafts. Deeply rooted in the living tradition.</div><div class="link-url">greenwoodguild.com</div></a>
+        <a href="https://www.basketassoc.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Basketmakers' Association</div><div class="link-desc">The national organisation for basketry in the UK. Courses, makers and the full range of the ancient tradition.</div><div class="link-url">basketassoc.org</div></a>
+        <a href="https://make.works" target="_blank" rel="noopener" class="link-card"><div class="link-name">Make Works</div><div class="link-desc">UK directory of makers, workshops and fabrication facilities. Find who's making what near you.</div><div class="link-url">make.works</div></a>
+        <a href="https://www.etsy.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">Etsy</div><div class="link-desc">The global marketplace that proves traditional craft has an income. Research what sells before you specialise.</div><div class="link-url">etsy.com</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="charities">
+      <div class="section-header"><h2 class="section-title">Charities &amp; Causes</h2><span class="section-count">10 links</span></div>
+      <div class="link-grid">
+        <a href="https://www.shelter.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Shelter</div><div class="link-desc">Housing and homelessness. Close to the heart of this site's original journey.</div><div class="link-url">shelter.org.uk</div></a>
+        <a href="https://www.crisis.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Crisis</div><div class="link-desc">The national charity for people experiencing homelessness. Immediate help, long-term change.</div><div class="link-url">crisis.org.uk</div></a>
+        <a href="https://www.mind.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Mind</div><div class="link-desc">Mental health. The UK's leading charity for information, support and campaigning.</div><div class="link-url">mind.org.uk</div></a>
+        <a href="https://www.rewildingbritain.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Rewilding Britain</div><div class="link-desc">The movement to restore nature at scale. Hopeful, practical, urgent. The long view.</div><div class="link-url">rewildingbritain.org.uk</div></a>
+        <a href="https://www.theriverstrust.org" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Rivers Trust</div><div class="link-desc">Protecting and restoring Britain's rivers. Quietly essential work in landscapes we walk through.</div><div class="link-url">theriverstrust.org</div></a>
+        <a href="https://www.treesforlife.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Trees for Life</div><div class="link-desc">Restoring the ancient Caledonian forest. One of the great British conservation projects.</div><div class="link-url">treesforlife.org.uk</div></a>
+        <a href="https://www.woodlandtrust.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Woodland Trust</div><div class="link-desc">Protecting and creating woodland across the UK. Plant trees, defend ancient woods, restore nature.</div><div class="link-url">woodlandtrust.org.uk</div></a>
+        <a href="https://www.bigissue.com" target="_blank" rel="noopener" class="link-card"><div class="link-name">The Big Issue</div><div class="link-desc">Supporting people in poverty through enterprise and journalism with purpose.</div><div class="link-url">bigissue.com</div></a>
+        <a href="https://www.sustrans.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">Sustrans</div><div class="link-desc">The charity making it easier to walk and cycle. The National Cycle Network and campaigns for active travel.</div><div class="link-url">sustrans.org.uk</div></a>
+        <a href="https://www.cpre.org.uk" target="_blank" rel="noopener" class="link-card"><div class="link-name">CPRE — The Countryside Charity</div><div class="link-desc">Protecting rural England. Planning, dark skies, ancient footpaths and the quiet defence of what we walk through.</div><div class="link-url">cpre.org.uk</div></a>
+      </div>
+    </section>
+
+    <section class="dir-section" id="need-help">
+      <div class="section-header"><h2 class="section-title">Need Help?</h2><span class="section-count">Good people who can help</span></div>
+      <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:var(--text-body);line-height:1.7;margin-bottom:1.5rem;max-width:600px;">If you've arrived here in a difficult moment, these are real organisations with real people. No judgment. No obligation. Just some doors worth knowing about.</p>
+      <div class="help-grid">
+        <a href="https://www.samaritans.org" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">Samaritans</div><div class="link-desc">Call 116 123, free, 24 hours a day, every day. Whatever you're going through.</div><div class="link-url">samaritans.org</div></a>
+        <a href="https://www.mind.org.uk/information-support/guides-to-support-and-services/crisis-services/" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">Mind — Crisis Support</div><div class="link-desc">Mental health information, helplines and crisis resources for England and Wales.</div><div class="link-url">mind.org.uk</div></a>
+        <a href="https://www.thecalmzone.net" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">CALM</div><div class="link-desc">Call 0800 58 58 58, 5pm–midnight daily. Campaign Against Living Miserably. Webchat also available.</div><div class="link-url">thecalmzone.net</div></a>
+        <a href="https://giveusashout.org" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">Shout</div><div class="link-desc">Text SHOUT to 85258. Free, confidential, 24/7 crisis text support from real people.</div><div class="link-url">giveusashout.org</div></a>
+        <a href="https://hubofhope.co.uk" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">Hub of Hope</div><div class="link-desc">Enter your postcode to find local mental health support anywhere in the UK. A genuinely useful tool.</div><div class="link-url">hubofhope.co.uk</div></a>
+        <a href="https://www.shelter.org.uk" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">Shelter</div><div class="link-desc">Housing advice and emergency help. Call 0808 800 4444. Free, 8am–8pm weekdays.</div><div class="link-url">shelter.org.uk</div></a>
+        <a href="https://111.nhs.uk" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">NHS 111</div><div class="link-desc">Call 111 and select option 2 for mental health crisis support. Free, 24/7, confidential.</div><div class="link-url">111.nhs.uk</div></a>
+        <a href="https://www.citizensadvice.org.uk" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">Citizens Advice</div><div class="link-desc">Free, independent advice on benefits, debt, housing and legal rights. There's always a route forward.</div><div class="link-url">citizensadvice.org.uk</div></a>
+        <a href="https://andysmanclub.co.uk" target="_blank" rel="noopener" class="link-card help-card"><div class="link-name">Andy's Man Club</div><div class="link-desc">Free peer support groups for men. Monday evenings, nationwide. No agenda. Just talk.</div><div class="link-url">andysmanclub.co.uk</div></a>
+      </div>
+    </section>
+
+    <section class="suggest-section" id="suggest">
+      <span class="suggest-eyebrow">Help build the directory</span>
+      <h2 class="suggest-title">Suggest a Link</h2>
+      <p class="suggest-body">This directory grows by word of mouth. If you know a source that belongs here — a site, a resource, a community — tell me about it. Every submission is read.</p>
+      <form class="suggest-form" id="suggestForm" onsubmit="handleSuggest(event)">
+        <div class="form-two-col">
+          <div class="form-row"><label for="s-name">Site name</label><input type="text" id="s-name" name="name" placeholder="e.g. The Ley Hunter" required></div>
+          <div class="form-row"><label for="s-url">URL</label><input type="url" id="s-url" name="url" placeholder="https://example.com" required></div>
+        </div>
+        <div class="form-row">
+          <label for="s-section">Which section?</label>
+          <select id="s-section" name="section">
+            <option value="">— choose a section —</option>
+            <option>Sacred Sites &amp; Landscape</option>
+            <option>Mythology &amp; Folklore</option>
+            <option>Archaeology &amp; Ancient History</option>
+            <option>Lost Civilisations &amp; Ancient Mysteries</option>
+            <option>Landscape &amp; Nature Writing</option>
+            <option>Spiritual Practice</option>
+            <option>Pilgrimage &amp; Walking</option>
+            <option>Van Life &amp; The Road</option>
+            <option>Current Affairs — The Good News</option>
+            <option>Skills &amp; Preparation</option>
+            <option>AI Learning</option>
+            <option>Creative Practice</option>
+            <option>Charities &amp; Causes</option>
+            <option>Need Help?</option>
+            <option>Suggest a new section</option>
+          </select>
+        </div>
+        <div class="form-row"><label for="s-desc">Why does it belong here?</label><textarea id="s-desc" name="description" placeholder="A short note on what makes it worth adding…" required></textarea></div>
+        <div class="form-row"><label for="s-email">Your email (optional — only if you'd like a reply)</label><input type="email" id="s-email" name="email" placeholder="your@email.com"></div>
+        <div style="text-align:center"><button type="submit" class="suggest-submit">Send suggestion</button></div>
+        <p class="suggest-note">Suggestions are reviewed personally. The directory is curated, not automated — every addition is considered.</p>
+      </form>
+      <div class="form-thanks" id="formThanks">Thank you. Your suggestion has been received and will be read with care.</div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <a href="index.html" class="footer-logo">Pilgrim Soul</a>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="dispatch.html">Dispatch</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="havens.html">Havens</a></li>
+      <li><a href="vision-fire.html">Vision Fire</a></li>
+      <li><a href="forum.html">Forum</a></li>
+      <li><a href="links.html">Directory</a></li>
+      <li><a href="community.html">Community</a></li>
+    </ul>
+    <div>
+      <p class="footer-address">Paul Bennett · Studio 165644 · PO Box 7169 · Poole · BH15 9EL</p>
+      <p class="footer-address"><a href="mailto:paul@pilgrimsoul.net">paul@pilgrimsoul.net</a></p>
+        <p class="footer-copy">© 2026 Pilgrim Soul — pilgrimsoul.net</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  toggle.addEventListener('click', function() { navLinks.classList.toggle('open'); });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  function handleSuggest(e) {
+    e.preventDefault();
+    var form = document.getElementById('suggestForm');
+    var thanks = document.getElementById('formThanks');
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/mvzwepwy', {
+      method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+    }).then(function() {
+      form.style.display = 'none'; thanks.style.display = 'block';
+    }).catch(function() {
+      form.style.display = 'none'; thanks.style.display = 'block';
+    });
+  }
+
+  var sections = document.querySelectorAll('.dir-section, .suggest-section');
+  var sideLinks = document.querySelectorAll('.sidebar-nav a');
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var id = entry.target.getAttribute('id');
+        sideLinks.forEach(function(a) {
+          a.style.color = a.getAttribute('href') === '#' + id ? 'var(--gold)' : '';
+          a.style.borderLeftColor = a.getAttribute('href') === '#' + id ? 'rgba(201,168,76,0.4)' : 'transparent';
+        });
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
+  sections.forEach(function(s) { observer.observe(s); });
+</script>
+
+</body>
+</html>

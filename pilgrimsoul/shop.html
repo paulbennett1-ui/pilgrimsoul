@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop — Pilgrim Soul</title>
+  <meta name="description" content="Music, meditations, and things made on the road. Digital downloads from Pilgrim Soul.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.25); --cream: #F5EFE4; --cream-dim: rgba(245,239,228,0.75); --dark: #0E0D0B; --dark-mid: #1A1915; --dark-warm: #221F1A; --text-body: #C8BFA8; --text-muted: #7A7368; }
+    body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); overflow-x: hidden; }
+    
+    .page-hero { position: relative; padding: 10rem 2rem 5rem; text-align: center; border-bottom: 1px solid rgba(201,168,76,0.08); overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(14,13,11,0.65) 0%, rgba(14,13,11,0.88) 60%, rgba(14,13,11,1) 100%), url('images/full-moon.jpg') center/cover no-repeat; filter: saturate(0.45); }
+    .page-hero-content { position: relative; }
+    .page-eyebrow { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1.25rem; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.5rem, 6vw, 4.5rem); color: var(--cream); line-height: 1.1; margin-bottom: 1.25rem; }
+    .page-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-body); max-width: 460px; margin: 0 auto; line-height: 1.7; }
+    .container { max-width: 1020px; margin: 0 auto; }
+    .section-label { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 2.5rem; }
+    .shop-section { padding: 5rem 2rem; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2px; background: rgba(201,168,76,0.07); }
+    .product-card { background: var(--dark-mid); display: flex; flex-direction: column; transition: background 0.3s; }
+    .product-card:hover { background: var(--dark-warm); }
+    .product-artwork { aspect-ratio: 1; position: relative; overflow: hidden; }
+    .product-artwork img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.88) saturate(0.95); transition: filter 0.5s, transform 0.6s; }
+    .product-card:hover .product-artwork img { filter: brightness(0.96) saturate(1); transform: scale(1.02); }
+    .artwork-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 2.5rem 1.75rem 1.5rem; background: linear-gradient(to top, rgba(14,13,11,0.97) 0%, transparent 100%); }
+    .artwork-artist { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.4rem; }
+    .artwork-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.7rem; color: var(--cream); line-height: 1.2; }
+    .product-info { padding: 1.75rem 1.75rem 2rem; flex: 1; display: flex; flex-direction: column; }
+    .product-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .product-type { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); }
+    .product-price { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); }
+    .product-desc { font-family: 'Cormorant Garamond', serif; font-size: 1.02rem; line-height: 1.78; color: var(--text-body); margin-bottom: 1.5rem; flex: 1; }
+    .tracks-label { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); display: block; margin-bottom: 0.75rem; padding-top: 0.5rem; border-top: 1px solid rgba(201,168,76,0.08); }
+    .track-list { list-style: none; margin-bottom: 1.5rem; }
+    .track-list li { display: flex; justify-content: space-between; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.8rem; color: var(--text-body); }
+    .buy-btn { display: block; width: 100%; text-align: center; background: var(--gold); color: var(--dark); font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 1rem; border: none; cursor: pointer; text-decoration: none; transition: background 0.3s; margin-top: auto; }
+    .buy-btn:hover { background: var(--gold-light); }
+    .shop-divider { height: 1px; background: rgba(201,168,76,0.08); margin: 0 2rem; }
+    .coming-soon { padding: 4rem 2rem 5rem; }
+    .coming-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(201,168,76,0.06); }
+    .coming-card { background: var(--dark); padding: 2rem; opacity: 0.5; }
+    .coming-name { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 0.6rem; }
+    .coming-desc { font-family: 'Cormorant Garamond', serif; font-size: 0.98rem; color: var(--text-muted); line-height: 1.65; }
+    .coming-tag { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.66rem; letter-spacing: 0.1em; color: var(--text-muted); border: 1px solid rgba(201,168,76,0.18); display: inline-block; padding: 0.22rem 0.7rem; margin-top: 0.75rem; text-transform: uppercase; }
+    footer { background: var(--dark); border-top: 1px solid rgba(201,168,76,0.1); padding: 3.5rem 2rem; }
+    .footer-inner { max-width: 1020px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+    .footer-logo { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold); opacity: 0.75; text-decoration: none; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-address { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+    .footer-copy { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); }
+    @media (max-width: 768px) {
+      .nav-links.open { display: flex; }      .product-grid { grid-template-columns: 1fr; } .coming-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; } .shop-section, .coming-soon { padding: 3rem 1.5rem; }
+    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.1rem 3rem; display: flex; justify-content: space-between; align-items: center; background: #1A1915; border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .nav-logo { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 0.28em; color: var(--gold); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--cream); }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; } .nav-logo { font-size: 0.85rem; }
+      .nav-links { display: none; position: fixed; inset: 0; background: rgba(14,13,11,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 99; }
+      .nav-links.open { display: flex; } .nav-links a { font-size: 1rem; letter-spacing: 0.2em; } .nav-toggle { display: flex; z-index: 101; }
+    }
+</style>
+</head>
+<body>
+    <nav>
+    <a href="index.html" class="nav-logo">Pilgrim Soul</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="dispatch.html">Dispatch</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="havens.html">Havens</a></li>
+      <li><a href="vision-fire.html">Vision Fire</a></li>
+      <li><a href="forum.html">Forum</a></li>
+      <li><a href="links.html">Directory</a></li>
+      <li><a href="community.html">Community</a></li>
+    </ul>
+  </nav>
+  <header class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="page-eyebrow">The Shop</span>
+      <h1 class="page-title">Things made on the road</h1>
+      <p class="page-sub">Music and meditations. Made slowly, with care. Pay once, keep forever.</p>
+    </div>
+  </header>
+  <section class="shop-section">
+    <div class="container">
+      <span class="section-label">Available now</span>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-artwork">
+            <img src="images/awakening-soul-cover.png" alt="The Awakening Soul — Pilgrim Soul">
+            <div class="artwork-label"><span class="artwork-artist">Pilgrim Soul</span><p class="artwork-title">The Awakening<br>Soul</p></div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta"><span class="product-type">9 Tracks · Digital Download · 432 Hz</span><span class="product-price">£9.99</span></div>
+            <p class="product-desc">A complete shamanic sound initiation — nine tracks woven from runic tones, healing sounds, shamanic drum and looping, mapped to the elements and the chakra system. The kundalini serpent rises through each centre in turn, from Awakening to Enlightenment, returning home an octave higher. Mastered at 432 Hz. Made to be experienced in one sitting, in sequence, with open ears.</p>
+            <span class="tracks-label">9 tracks · complete journey</span>
+            <ul class="track-list"><li><span>1. Awakening</span></li><li><span>2. Grounding</span></li><li><span>3. Flow</span></li><li><span>4. Power</span></li><li><span>5. Love</span></li><li><span>6. Expression</span></li><li><span>7. Dream</span></li><li><span>8. Perception</span></li><li><span>9. Enlightenment</span></li></ul>
+            <a href="https://bennettpaul4.gumroad.com/l/uvsrie" class="buy-btn" target="_blank" rel="noopener">Buy the bundle · £9.99</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-artwork">
+            <img src="images/longspoon-symphony of man.jpg" alt="Symphony Of Man — Longspoon album cover">
+            <div class="artwork-label"><span class="artwork-artist">Longspoon</span><p class="artwork-title">Symphony<br>Of Man</p></div>
+          </div>
+          <div class="product-info">
+            <div class="product-meta"><span class="product-type">13 Tracks · Full Album · Digital Download</span><span class="product-price">£9.99</span></div>
+            <p class="product-desc">Made quietly, released quietly — but the music has waited long enough. Symphony Of Man is an album about the great unfolding: consciousness, nature, the search for what is true. Made under the name Longspoon. 13 tracks, high-quality MP3s.</p>
+            <span class="tracks-label">13 tracks · high-quality MP3s</span>
+            <ul class="track-list"><li><span>1. Time To Shine</span></li><li><span>2. Dining With The Devil</span></li><li><span>3. Give Me A Call</span></li><li><span>4. Green Eyed Hungry Machine</span></li><li><span>5. Mental Cages</span></li><li><span>6. Forty Days Forty Nights</span></li><li><span>7. Symphony Of Man</span></li><li><span>8. When The Rain Came Down</span></li><li><span>9. Apathy</span></li><li><span>10. In Pieces Again</span></li><li><span>11. I Love You</span></li><li><span>12. Better View</span></li><li><span>13. Baghdad Beautiful</span></li></ul>
+            <a href="https://bennettpaul4.gumroad.com/l/ipran" class="buy-btn" target="_blank" rel="noopener" style="margin-top:auto;">Buy the album · £9.99</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="shop-divider"></div>
+  <section class="coming-soon">
+    <div class="container">
+      <span class="section-label">Coming soon</span>
+      <div class="coming-grid">
+        <div class="coming-card"><span class="coming-name">The Stilted Pilgrim</span><p class="coming-desc">The memoir of the walk — 437 miles on stilts along the ancient Michael and Mary ley lines. In editing now.</p><span class="coming-tag">Book · 2026</span></div>
+        <div class="coming-card"><span class="coming-name">New Music</span><p class="coming-desc">Songs from the road, still forming. A second album taking shape. When it's ready, this is where it lands first.</p><span class="coming-tag">Album · TBC</span></div>
+        <div class="coming-card"><span class="coming-name">Walking Guides</span><p class="coming-desc">Practical guides for walking sacred routes — the Michael and Mary line, other ley paths, charity walk planning.</p><span class="coming-tag">Digital · TBC</span></div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">Pilgrim Soul</a>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="dispatch.html">Dispatch</a></li>
+        <li><a href="sessions.html">Sessions</a></li>
+        <li><a href="havens.html">Havens</a></li>
+        <li><a href="vision-fire.html">Vision Fire</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="links.html">Directory</a></li>
+      <li><a href="community.html">Community</a></li>
+      </ul>
+      <div>
+        <p class="footer-address">Paul Bennett · Studio 165644 · PO Box 7169 · Poole · BH15 9EL</p>
+        <p class="footer-address"><a href="mailto:paul@pilgrimsoul.net">paul@pilgrimsoul.net</a></p>
+        <p class="footer-copy">© 2026 Pilgrim Soul — pilgrimsoul.net</p>
+      </div>
+    </div>
+  </footer>
+  <script src="https://gumroad.com/js/gumroad.js"></script>
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links  = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+  </script>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Forum — Pilgrim Soul</title>
+  <meta name="description" content="The notice board, the guestbook, the campfire. A place to pause, leave your mark, and find fellow travellers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- PLATFORM LINKS -->
+  <!-- Discord: https://discord.gg/qgJCYvkD -->
+  <!-- Supabase project: https://krgjijjxakqrtqrvitex.supabase.co -->
+  <!-- Supabase key: sb_publishable_J2rru9fHkestytiZful4WQ_QoLkEb0V -->
+
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #C9A84C; --gold-light: #E8C97A; --gold-dim: rgba(201,168,76,0.25);
+      --cream: #F5EFE4; --cream-dim: rgba(245,239,228,0.75);
+      --dark: #0E0D0B; --dark-mid: #1A1915; --dark-warm: #221F1A;
+      --text-body: #C8BFA8; --text-muted: #7A7368;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--dark); color: var(--cream); overflow-x: hidden; }
+    .page-hero { position: relative; height: 70vh; min-height: 520px; display: flex; align-items: flex-end; overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(14,13,11,0.35) 0%, rgba(14,13,11,0.2) 35%, rgba(14,13,11,0.82) 72%, rgba(14,13,11,1) 100%), url('images/country-path.jpg') center/cover no-repeat; animation: slowdrift 22s ease-in-out infinite alternate; }
+    @keyframes slowdrift { from { transform: scale(1.04) translateY(0); } to { transform: scale(1.06) translateY(-1.2%); } }
+    .page-hero-content { position: relative; padding: 0 2rem 4rem; max-width: 1020px; margin: 0 auto; width: 100%; animation: fadeUp 1.6s ease forwards; opacity: 0; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .page-eyebrow { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1rem; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2.5rem, 6vw, 4.2rem); color: var(--cream); line-height: 1.1; margin-bottom: 1rem; }
+    .page-title em { font-style: italic; color: var(--gold-light); }
+    .page-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-body); max-width: 520px; line-height: 1.7; }
+    .container { max-width: 1020px; margin: 0 auto; }
+    .section-label { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1.5rem; }
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.85s ease, transform 0.85s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .noticeboard { padding: 5rem 2rem 4rem; background: var(--dark); border-top: 1px solid rgba(201,168,76,0.08); }
+    .noticeboard-header { margin-bottom: 3rem; }
+    .noticeboard-header h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--cream); line-height: 1.25; margin-bottom: 0.75rem; }
+    .noticeboard-header p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; max-width: 560px; }
+    .noticeboard-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .notice-card { background: var(--dark-warm); border: 1px solid rgba(201,168,76,0.12); padding: 2rem; position: relative; }
+    .notice-card-label { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.38em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .notice-mind-body { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.82; color: var(--text-body); margin-bottom: 1rem; min-height: 80px; }
+    .notice-mind-time { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.04em; }
+    .notice-mind-placeholder { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--text-muted); line-height: 1.75; }
+    .admin-trigger { display: inline-block; margin-top: 1.25rem; font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(201,168,76,0.25); cursor: pointer; border: none; background: none; padding: 0; transition: color 0.3s; }
+    .admin-trigger:hover { color: rgba(201,168,76,0.55); }
+    .admin-panel { display: none; margin-top: 1.25rem; border-top: 1px solid rgba(201,168,76,0.1); padding-top: 1.25rem; }
+    .admin-panel.open { display: block; }
+    .admin-panel input[type="password"], .admin-panel textarea { width: 100%; background: rgba(245,239,228,0.04); border: 1px solid rgba(201,168,76,0.2); color: var(--cream); font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.85rem; padding: 0.7rem 0.9rem; outline: none; transition: border-color 0.3s; margin-bottom: 0.75rem; resize: vertical; }
+    .admin-panel input[type="password"]:focus, .admin-panel textarea:focus { border-color: rgba(201,168,76,0.5); }
+    .admin-panel textarea { min-height: 80px; }
+    .admin-panel button { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dark); background: var(--gold); border: none; padding: 0.7rem 1.75rem; cursor: pointer; transition: background 0.3s; }
+    .admin-panel button:hover { background: var(--gold-light); }
+    .admin-msg { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.9rem; margin-top: 0.5rem; color: var(--gold); }
+    .notice-question { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 1.82; color: var(--cream); font-style: italic; }
+    .notice-season-tag { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--text-muted); margin-top: 1rem; display: block; text-transform: uppercase; }
+    .notice-hexagram-num { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.2em; color: var(--gold); display: block; margin-bottom: 0.75rem; }
+    .notice-iching-body { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.85; color: var(--text-body); font-style: italic; }
+    .notice-festival-tag { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; letter-spacing: 0.08em; color: var(--text-muted); margin-top: 1rem; display: block; text-transform: uppercase; }
+    .guestbook-section { padding: 5rem 2rem; background: var(--dark); border-top: 1px solid rgba(201,168,76,0.08); }
+    .guestbook-intro { margin-bottom: 3rem; }
+    .guestbook-intro p { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; line-height: 1.9; color: var(--text-body); margin-bottom: 1.5rem; }
+    .guestbook-intro p.lead { font-size: 1.3rem; color: var(--cream); font-weight: 300; line-height: 1.75; }
+    .guestbook-intro p:last-child { margin-bottom: 0; }
+    .guestbook-inner { max-width: 720px; }
+    .comment-form-wrap { background: var(--dark-warm); border: 1px solid rgba(201,168,76,0.12); padding: 2.5rem; margin-bottom: 3.5rem; }
+    .comment-form-wrap h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.5rem; color: var(--cream); margin-bottom: 0.5rem; }
+    .comment-form-wrap p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.98rem; color: var(--text-muted); margin-bottom: 1.75rem; line-height: 1.65; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-field label { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); }
+    .form-field input, .form-field textarea { background: rgba(245,239,228,0.04); border: 1px solid rgba(201,168,76,0.2); color: var(--cream); font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.88rem; padding: 0.8rem 1rem; outline: none; transition: border-color 0.3s; resize: vertical; }
+    .form-field input:focus, .form-field textarea:focus { border-color: rgba(201,168,76,0.55); }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--text-muted); }
+    .form-field textarea { min-height: 120px; }
+    .form-full { margin-bottom: 1rem; }
+    .form-submit-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+    .form-note { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.04em; max-width: 340px; line-height: 1.5; }
+    .btn-submit { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dark); background: var(--gold); border: none; padding: 0.9rem 2.5rem; cursor: pointer; transition: background 0.3s; white-space: nowrap; }
+    .btn-submit:hover { background: var(--gold-light); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    .form-status { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; margin-top: 1rem; }
+    .form-status.success { color: var(--gold); }
+    .form-status.error { color: #c0776b; }
+    .comments-list-label { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(201,168,76,0.1); }
+    .comments-loading { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--text-muted); padding: 1rem 0; }
+    .comments-empty { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-muted); line-height: 1.75; padding: 1rem 0; }
+    .comment-thread { margin-bottom: 2.5rem; }
+    .comment-card { border-left: 2px solid rgba(201,168,76,0.2); padding: 1.5rem 0 1.5rem 1.75rem; }
+    .comment-card.is-reply { border-left-color: rgba(201,168,76,0.1); margin-left: 2rem; padding-top: 1.25rem; padding-bottom: 1.25rem; }
+    .comment-meta { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.75rem; }
+    .comment-name { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); }
+    .comment-date { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.04em; }
+    .comment-body { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.82; color: var(--text-body); margin-bottom: 0.85rem; }
+    .reply-btn { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); background: none; border: none; cursor: pointer; padding: 0; transition: color 0.3s; }
+    .reply-btn:hover { color: var(--gold); }
+    .reply-form-wrap { margin-top: 1.25rem; background: rgba(245,239,228,0.02); border: 1px solid rgba(201,168,76,0.1); padding: 1.5rem; display: none; }
+    .reply-form-wrap.open { display: block; }
+    .reply-form-wrap .btn-submit { padding: 0.75rem 1.75rem; font-size: 0.65rem; }
+    .reply-cancel { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); background: none; border: none; cursor: pointer; padding: 0; margin-left: 1rem; transition: color 0.3s; }
+    .reply-cancel:hover { color: var(--cream); }
+    .landscape-break { height: 320px; position: relative; overflow: hidden; }
+    .landscape-break-bg { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--dark) 0%, transparent 22%, transparent 78%, var(--dark) 100%), url('images/glastonbury-tor.jpg') center/cover no-repeat; filter: saturate(0.5) brightness(0.6); }
+    .landscape-break-text { position: relative; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .landscape-break-text p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(1.3rem, 3vw, 2rem); color: var(--cream); text-align: center; max-width: 600px; padding: 0 2rem; line-height: 1.65; text-shadow: 0 2px 20px rgba(0,0,0,0.7); }
+    .discord-section { padding: 5rem 2rem; background: var(--dark-mid); border-top: 1px solid rgba(201,168,76,0.08); }
+    .discord-inner { max-width: 720px; }
+    .discord-inner h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(1.8rem, 3.5vw, 2.6rem); color: var(--cream); margin-bottom: 1.25rem; line-height: 1.25; }
+    .discord-inner h2 em { font-style: italic; color: var(--gold-light); }
+    .discord-body p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.88; color: var(--text-body); margin-bottom: 1.25rem; }
+    .discord-body p:last-of-type { margin-bottom: 2rem; }
+    .discord-note { border-left: 2px solid rgba(201,168,76,0.25); padding: 1rem 1.5rem; margin: 2rem 0; }
+    .discord-note p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+    .btn-discord { display: inline-block; font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dark); background: var(--gold); padding: 0.95rem 2.75rem; text-decoration: none; transition: background 0.3s, transform 0.2s; }
+    .btn-discord:hover { background: var(--gold-light); transform: translateY(-1px); }
+    footer { background: var(--dark); border-top: 1px solid rgba(201,168,76,0.1); padding: 3.5rem 2rem; }
+    .footer-inner { max-width: 1020px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
+    .footer-logo { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; color: var(--gold); opacity: 0.75; text-decoration: none; }
+    .footer-links { display: flex; gap: 2.25rem; list-style: none; }
+    .footer-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.76rem; letter-spacing: 0.1em; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-copy { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); }
+    .footer-address { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+    @media (max-width: 900px) { .noticeboard-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
+    @media (max-width: 768px) {
+      .nav-links.open { display: flex; }      .form-row { grid-template-columns: 1fr; } .comment-card.is-reply { margin-left: 1rem; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .noticeboard, .guestbook-section, .discord-section { padding-left: 1.5rem; padding-right: 1.5rem; } .landscape-break { height: 220px; }
+    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.1rem 3rem; display: flex; justify-content: space-between; align-items: center; background: #1A1915; border-bottom: 1px solid rgba(201,168,76,0.12); }
+    .nav-logo { font-family: 'Cinzel', serif; font-size: 1rem; letter-spacing: 0.28em; color: var(--gold); text-decoration: none; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.75rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-toggle span { display: block; width: 24px; height: 1px; background: var(--cream); }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; } .nav-logo { font-size: 0.85rem; }
+      .nav-links { display: none; position: fixed; inset: 0; background: rgba(14,13,11,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; z-index: 99; }
+      .nav-links.open { display: flex; } .nav-links a { font-size: 1rem; letter-spacing: 0.2em; } .nav-toggle { display: flex; z-index: 101; }
+    }
+</style>
+</head>
+<body>
+
+    <nav>
+    <a href="index.html" class="nav-logo">Pilgrim Soul</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="dispatch.html">Dispatch</a></li>
+      <li><a href="sessions.html">Sessions</a></li>
+      <li><a href="havens.html">Havens</a></li>
+      <li><a href="vision-fire.html">Vision Fire</a></li>
+      <li><a href="forum.html" class="active">Forum</a></li>
+      <li><a href="links.html">Directory</a></li>
+      <li><a href="community.html">Community</a></li>
+    </ul>
+  </nav>
+
+  <header class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <span class="page-eyebrow">The Forum</span>
+      <h1 class="page-title">The path is walked<br><em>together</em></h1>
+      <p class="page-sub">The notice board, the guestbook, the campfire. A place to pause, leave your mark, and find others walking the same road.</p>
+    </div>
+  </header>
+
+  <section class="noticeboard">
+    <div class="container">
+      <div class="noticeboard-header fade-in">
+        <span class="section-label">The Notice Board</span>
+        <h2>What's moving right now</h2>
+        <p>Three windows on the present moment — what's on the pilgrim's mind, the question of the week, and a seed of ancient wisdom for the road.</p>
+      </div>
+      <div class="noticeboard-grid">
+        <div class="notice-card fade-in">
+          <span class="notice-card-label">What's on my mind</span>
+          <div id="mindBody"><p class="notice-mind-placeholder">on the road…</p></div>
+          <span class="notice-mind-time" id="mindTime"></span>
+          <button class="admin-trigger" id="adminTrigger" onclick="toggleAdmin()">&#x1F512;</button>
+          <div class="admin-panel" id="adminPanel">
+            <input type="password" id="adminPass" placeholder="Password" autocomplete="off">
+            <textarea id="adminMsg" placeholder="What's on your mind right now…" maxlength="400"></textarea>
+            <button onclick="postNotice()">Post</button>
+            <p class="admin-msg" id="adminFeedback"></p>
+          </div>
+        </div>
+        <div class="notice-card fade-in">
+          <span class="notice-card-label">Question of the week</span>
+          <p class="notice-question" id="weeklyQuestion">Loading…</p>
+          <span class="notice-season-tag" id="seasonTag"></span>
+        </div>
+        <div class="notice-card fade-in">
+          <span class="notice-card-label">Wisdom seed</span>
+          <span class="notice-hexagram-num" id="hexagramNum"></span>
+          <p class="notice-iching-body" id="ichingBody">Loading…</p>
+          <span class="notice-festival-tag" id="festivalTag"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guestbook-section">
+    <div class="container">
+      <div class="guestbook-intro fade-in">
+        <span class="section-label">The Guestbook</span>
+        <p class="lead">Every pilgrim's hostel has a guestbook. Every waymarked path has stones left by those who came before. This is that place.</p>
+        <p>Leave a word — where you are walking, what called you here, what you are carrying, or simply that you passed through. The thread builds slowly, like a trail of cairns. Someone who arrives after you will find it.</p>
+      </div>
+      <div class="guestbook-inner">
+        <div class="comment-form-wrap fade-in">
+          <h3>Leave a mark on the path</h3>
+          <p>Tell us where you are, what brought you here, or simply that you passed through.</p>
+          <div class="form-row">
+            <div class="form-field"><label for="comment-name">Your name</label><input type="text" id="comment-name" placeholder="How you'd like to be known" maxlength="80"></div>
+            <div class="form-field"><label for="comment-location">Where you are (optional)</label><input type="text" id="comment-location" placeholder="A place, a path, a county…" maxlength="100"></div>
+          </div>
+          <div class="form-field form-full"><label for="comment-body">Your words</label><textarea id="comment-body" placeholder="What would you like to leave here?" maxlength="1200"></textarea></div>
+          <div class="form-submit-row">
+            <p class="form-note">Comments are held briefly before appearing — usually within a day or two. Nothing is lost.</p>
+            <button class="btn-submit" id="submitBtn" onclick="submitComment()">Leave a word</button>
+          </div>
+          <div class="form-status" id="formStatus"></div>
+        </div>
+        <span class="comments-list-label">The thread so far</span>
+        <div id="commentsList"><p class="comments-loading">Gathering the thread…</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="landscape-break">
+    <div class="landscape-break-bg"></div>
+    <div class="landscape-break-text"><p>"Not every fellow traveller walks the same road. Some walk alongside. Some have walked ahead."</p></div>
+  </div>
+
+  <section class="discord-section">
+    <div class="container">
+      <div class="discord-inner fade-in">
+        <span class="section-label">The campfire</span>
+        <h2>Fellow Travellers — <em>the server</em></h2>
+        <div class="discord-body">
+          <p>There is also a Discord server — a place for those who want something more immediate than a comment thread. Live conversation, shared finds, questions asked into the open air.</p>
+          <p>It is new. It is quiet right now. That is honest, and it is not a reason to stay away — it is a reason to arrive early.</p>
+          <div class="discord-note"><p>Every community like this begins with a handful of people sitting in an empty room, deciding that the room is worth staying in. If this calls to you, come and sit down.</p></div>
+          <a href="https://discord.gg/qgJCYvkD" target="_blank" rel="noopener" class="btn-discord">Join the campfire</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo">Pilgrim Soul</a>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="dispatch.html">Dispatch</a></li>
+        <li><a href="sessions.html">Sessions</a></li>
+        <li><a href="havens.html">Havens</a></li>
+        <li><a href="vision-fire.html">Vision Fire</a></li>
+        <li><a href="forum.html">Forum</a></li>
+        <li><a href="links.html">Directory</a></li>
+      <li><a href="community.html">Community</a></li>
+      </ul>
+      <div>
+        <p class="footer-address">Paul Bennett · Studio 165644 · PO Box 7169 · Poole · BH15 9EL</p>
+        <p class="footer-address"><a href="mailto:paul@pilgrimsoul.net">paul@pilgrimsoul.net</a></p>
+      <p class="footer-copy">© 2026 Pilgrim Soul — pilgrimsoul.net</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://krgjijjxakqrtqrvitex.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_J2rru9fHkestytiZful4WQ_QoLkEb0V';
+    const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const ADMIN_PASSWORD = 'openroads';
+
+    const weeklyQuestions = [
+      { q: "What in you is ready to emerge that you have been keeping underground?", season: "Spring" },
+      { q: "What old skin are you ready to shed this year?", season: "Spring" },
+      { q: "If fear were not a factor, what would you begin today?", season: "Spring" },
+      { q: "What does your life want to grow toward right now?", season: "Spring" },
+      { q: "Where have you been waiting for permission that only you can give yourself?", season: "Spring" },
+      { q: "What seed did you plant in the dark that is only now reaching the light?", season: "Spring" },
+      { q: "What would it mean to truly begin again?", season: "Spring" },
+      { q: "Where in your life are you still living by someone else's map?", season: "Spring" },
+      { q: "What is the bravest small act you could take this week?", season: "Spring" },
+      { q: "What part of yourself have you been apologising for that deserves to be celebrated?", season: "Spring" },
+      { q: "If spring is nature's yes — what is your yes this season?", season: "Spring" },
+      { q: "What have you been carrying through winter that you are ready to put down?", season: "Spring" },
+      { q: "What would your life look like if you trusted the direction you are already moving in?", season: "Spring" },
+      { q: "What are you in full bloom right now that you are not fully appreciating?", season: "Summer" },
+      { q: "Where in your life are you holding back from shining completely?", season: "Summer" },
+      { q: "What would it feel like to be entirely present in this one moment?", season: "Summer" },
+      { q: "What is the most alive you have felt this year and what made it so?", season: "Summer" },
+      { q: "If your life were a landscape right now, what would it look like?", season: "Summer" },
+      { q: "What are you building that will outlast the season?", season: "Summer" },
+      { q: "Where have you confused being busy with being alive?", season: "Summer" },
+      { q: "What relationship in your life deserves more of your full attention?", season: "Summer" },
+      { q: "What would you do differently if you knew this summer was extraordinary?", season: "Summer" },
+      { q: "What truth about yourself are you finally ready to stop running from?", season: "Summer" },
+      { q: "Where in your life is the light trying to reach but something is still in the way?", season: "Summer" },
+      { q: "What does joy actually feel like in your body and when did you last feel it?", season: "Summer" },
+      { q: "If this moment were enough — truly enough — what would change?", season: "Summer" },
+      { q: "What have you harvested this year that you are genuinely proud of?", season: "Autumn" },
+      { q: "What are you holding onto that the season is asking you to release?", season: "Autumn" },
+      { q: "What has this year taught you that you could not have learned any other way?", season: "Autumn" },
+      { q: "Where in your life are you resisting an ending that is already underway?", season: "Autumn" },
+      { q: "What would you do differently if you knew winter was coming and time was precious?", season: "Autumn" },
+      { q: "What relationship in your life needs an honest conversation before the year turns?", season: "Autumn" },
+      { q: "What have you been grateful for in silence that deserves to be spoken aloud?", season: "Autumn" },
+      { q: "Where have you been measuring yourself against the wrong things?", season: "Autumn" },
+      { q: "What part of your story are you ready to stop telling yourself?", season: "Autumn" },
+      { q: "If this chapter of your life were closing, what would you want to have said or done?", season: "Autumn" },
+      { q: "What does it mean to belong somewhere and do you feel that belonging now?", season: "Autumn" },
+      { q: "What have you outgrown this year that once felt essential?", season: "Autumn" },
+      { q: "If the trees can let go so beautifully, what might your own release look like?", season: "Autumn" },
+      { q: "What does the silence have to teach you that the noise has been drowning out?", season: "Winter" },
+      { q: "Where in your life do you most need to rest without guilt?", season: "Winter" },
+      { q: "What would it mean to truly know yourself, separate from everything you do?", season: "Winter" },
+      { q: "In the stillness, what is the quietest and most persistent voice saying?", season: "Winter" },
+      { q: "What have you survived this year that you have not yet given yourself credit for?", season: "Winter" },
+      { q: "If winter is nature's invitation to go inward, what do you find when you arrive there?", season: "Winter" },
+      { q: "What belief have you carried your whole life that may no longer be true?", season: "Winter" },
+      { q: "Who are you when no one is watching and nothing is required of you?", season: "Winter" },
+      { q: "What would your life feel like if you stopped striving and started trusting?", season: "Winter" },
+      { q: "What is the oldest wound in you that is still quietly asking for your attention?", season: "Winter" },
+      { q: "If you could send one piece of wisdom back to your younger self, what would it be?", season: "Winter" },
+      { q: "What are you being called toward in the year ahead that both excites and frightens you?", season: "Winter" },
+      { q: "When this year is over and you look back, what will have mattered most?", season: "Winter" }
+    ];
+
+    function getCurrentQuestion() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const weekStart = new Date(year, 2, 20);
+      if (now < weekStart) weekStart.setFullYear(year - 1);
+      const daysDiff = Math.floor((now - weekStart) / (1000 * 60 * 60 * 24));
+      const weekIndex = Math.floor(daysDiff / 7) % 52;
+      return { ...weeklyQuestions[weekIndex], weekNum: weekIndex + 1 };
+    }
+
+    const ichingSeeds = {
+      yule: [
+        { num: 1, name: "The Creative", seed: "In the deepest dark, before the first movement, before the first breath — everything that will ever be is already present. You are not waiting for your life to begin. It already has." },
+        { num: 2, name: "The Receptive", seed: "The earth does not force the seed to grow. It simply holds it, perfectly, until the time is right. Practice the art of sacred waiting." },
+        { num: 3, name: "Difficulty at the Beginning", seed: "The first shoot does not apologise for the effort it takes to break the surface. Neither should you. Beginning is always the hardest and most necessary act." },
+        { num: 4, name: "Youthful Folly", seed: "Not knowing is not weakness. It is the most honest place to stand. The one who admits they do not know is already closer to wisdom than the one who pretends." },
+        { num: 5, name: "Waiting", seed: "The rain comes in its own time. Your work right now is not to hurry what is already on its way but to be ready when it arrives." },
+        { num: 6, name: "Conflict", seed: "Not every battle needs to be fought to its end. Sometimes the most powerful thing you can do is set down your sword and walk a different road." },
+        { num: 7, name: "The Army", seed: "True strength is not force. It is the quiet authority of someone who knows exactly who they are and why they are here." },
+        { num: 8, name: "Holding Together", seed: "Find your people. Not the ones who reflect who you have been — the ones who recognise who you are becoming." }
+      ],
+      imbolc: [
+        { num: 9, name: "The Taming Power of the Small", seed: "You do not need to move mountains today. One small and honest act, taken with full presence, changes more than you know." },
+        { num: 10, name: "Treading", seed: "Walk carefully but walk forward. The path through uncertainty is not recklessness nor is it paralysis — it is the steady placement of one foot after the other." },
+        { num: 11, name: "Peace", seed: "When heaven and earth are in conversation, everything flows. Notice where in your life the flow has stopped — that is where your attention is needed." },
+        { num: 12, name: "Standstill", seed: "Sometimes nothing moving is not failure. It is the held breath before the song begins. Trust the stillness. It is doing its work." },
+        { num: 13, name: "Fellowship", seed: "The fire you light alone warms one person. The fire you light together warms a village. Who are you not yet letting close enough to share the flame?" },
+        { num: 14, name: "Great Possession", seed: "What you have been given is not for hoarding. The gifts that flow through open hands multiply. The gifts that are clutched begin to diminish." },
+        { num: 15, name: "Modesty", seed: "The mountain does not announce itself. The deepest knowing arrives quietly, without fanfare, and sits down beside you like an old friend." },
+        { num: 16, name: "Enthusiasm", seed: "Something in you knows the way. Not the careful calculating mind — the older, wilder knowing beneath it. What is it saying right now if you stop long enough to listen?" }
+      ],
+      ostara: [
+        { num: 17, name: "Following", seed: "There is no shame in being led by something larger than yourself. The river does not resist the landscape — it finds its way through it. What are you being asked to follow right now?" },
+        { num: 18, name: "Work on the Decayed", seed: "Some things have been left too long unattended. This is not a judgement — it is an invitation. What in your life is asking to be tended, repaired, brought back to life?" },
+        { num: 19, name: "Approach", seed: "Something good is drawing near. Not because you have forced it but because you have made yourself ready to receive it. Stay open. It is closer than you think." },
+        { num: 20, name: "Contemplation", seed: "Before you act, see clearly. Before you speak, understand. The one who observes without rushing to conclusion carries a rare and precious gift." },
+        { num: 21, name: "Biting Through", seed: "Some obstacles will not dissolve gently. They require a clean decisive act. You already know what needs to be done. The only question is whether you are ready to do it." },
+        { num: 22, name: "Grace", seed: "Beauty is not decoration. It is the natural expression of something living in accordance with its true nature. When you are most yourself you are most beautiful." },
+        { num: 23, name: "Splitting Apart", seed: "What is falling away right now was always meant to. Do not grieve what the season is releasing. The tree does not mourn the bark it sheds to grow." },
+        { num: 24, name: "Return", seed: "Here you are again at the beginning — but you are not who you were the last time you stood here. Every return is also an arrival somewhere new." }
+      ],
+      beltane: [
+        { num: 25, name: "Innocence", seed: "The most powerful thing you can bring to this moment is yourself, uncalculated and unperformed. The world does not need another careful version of you. It needs the real one." },
+        { num: 26, name: "The Taming Power of the Great", seed: "You have been gathering strength longer than you realise. What has been accumulating quietly inside you is ready now. Do not be afraid of the size of what you are capable of." },
+        { num: 27, name: "Nourishment", seed: "What you feed grows. What you starve diminishes. Look honestly at where your attention, your time and your love are going — and ask whether those things deserve that much of you." },
+        { num: 28, name: "Preponderance of the Great", seed: "The beam is bending under the weight it carries. Something must give — and that is not a catastrophe, it is a course correction. What are you carrying that was never yours to carry?" },
+        { num: 29, name: "The Abysmal", seed: "You have been here before — in the deep water, uncertain of the bottom. And you have surfaced every time. The water is not your enemy. It is showing you how strong your lungs are." },
+        { num: 30, name: "The Clinging", seed: "You are the flame and the flame needs something to burn. Attach yourself to what is true, what is alive, what genuinely feeds the light in you — and burn there with everything you have." },
+        { num: 31, name: "Influence", seed: "You are affecting everything around you whether you intend to or not. The question is never whether you have influence — only whether you are wielding it with awareness and care." },
+        { num: 32, name: "Duration", seed: "The oak does not grow fast. It grows true. What are you building that is meant to last — and are you giving it the time and patience that lasting things require?" }
+      ],
+      litha: [
+        { num: 33, name: "Retreat", seed: "Knowing when to step back is not defeat — it is wisdom. The tide that withdraws is already gathering the force of its return. Sometimes the most powerful move is a graceful and intentional withdrawal." },
+        { num: 34, name: "The Power of the Great", seed: "Power used without wisdom leaves wreckage. Power used with wisdom leaves beauty. You have more strength available to you right now than you are acknowledging — the question is how you choose to meet it." },
+        { num: 35, name: "Progress", seed: "You are moving forward even when it does not feel like it. The sun does not pause to check whether the flowers have noticed its light. Keep shining. The growth is happening whether you can see it or not." },
+        { num: 36, name: "Darkening of the Light", seed: "There are times when wisdom must be carried quietly, protected from those who would diminish it. Not everything you know needs to be spoken. Tend your inner flame carefully." },
+        { num: 37, name: "The Family", seed: "The relationships closest to you are the ones most deserving of your finest self — not what is left over after everything else. Who in your inner circle is waiting for a version of you that you only show to strangers?" },
+        { num: 38, name: "Opposition", seed: "Where you see only difference, look again. The tension between opposites is not always a problem to be solved — sometimes it is the very force that is generating the light." },
+        { num: 39, name: "Obstruction", seed: "The obstacle on your path is not random. It is asking you a specific question. Stop pushing against it long enough to hear what it is actually saying." },
+        { num: 40, name: "Deliverance", seed: "Something that has been holding you in place is releasing its grip. Do not rush to fill the space it leaves. Stand in the opening for a moment and breathe the air of your own freedom." }
+      ],
+      lammas: [
+        { num: 41, name: "Decrease", seed: "Giving something up is not always loss. Sometimes it is the most creative act available to you. What are you ready to offer back to the fire so that something truer can grow in its place?" },
+        { num: 42, name: "Increase", seed: "You are in a season of genuine expansion. Do not shrink from it out of habit or false modesty. Receive what is being given with both hands and the full dignity it deserves." },
+        { num: 43, name: "Breakthrough", seed: "You have been working toward this longer than you remember. The moment of breakthrough is not the beginning — it is the visible surface of everything invisible that came before it. You earned this." },
+        { num: 44, name: "Coming to Meet", seed: "Not everything that presents itself beautifully is what it appears to be. This is not a counsel of fear — it is an invitation to bring your full discernment to what is arriving at your door." },
+        { num: 45, name: "Gathering Together", seed: "The harvest does not happen alone. Who are the people without whom what you are building would not be possible? Have you told them lately what they mean to you?" },
+        { num: 46, name: "Pushing Upward", seed: "Growth that is steady and unhurried is the most enduring kind. You do not need to force your way to the light. Root deeply enough and the rising becomes inevitable." },
+        { num: 47, name: "Exhaustion", seed: "You cannot pour from an empty vessel and the world does not actually need your depletion. Rest is not a reward for finished work — it is the condition that makes the work possible at all." },
+        { num: 48, name: "The Well", seed: "The well does not chase the thirsty. It simply is what it is, where it is, full and available. Your deepest gift to the world is not effort — it is presence. Be the well." }
+      ],
+      mabon: [
+        { num: 49, name: "Revolution", seed: "Some things do not need repairing — they need replacing. The courage to begin again is not the same as failure. It is the mark of someone who has grown too large for what once contained them." },
+        { num: 50, name: "The Cauldron", seed: "You are being transformed by everything you have lived through this year. The heat is not punishment — it is alchemy. Trust the process even when you cannot yet see what is being made." },
+        { num: 51, name: "The Arousing", seed: "The thunder that frightens also clears the air. What has shaken you recently has also woken something that needed waking. Do not be too quick to return to comfort. Stay with what has been stirred." },
+        { num: 52, name: "Keeping Still", seed: "There is a stillness available to you that is not emptiness — it is fullness so complete it has nowhere left to go. Find the place in yourself that the noise has never reached. Rest there." },
+        { num: 53, name: "Development", seed: "The wild goose does not rush its migration. It follows the ancient knowing in its bones, unhurried, exact, arriving precisely when it was always going to arrive. You too are on time." },
+        { num: 54, name: "The Marrying Maiden", seed: "Not every situation offers you the position you feel you deserve. Wisdom sometimes means playing a smaller role with full grace while you wait for the moment that is truly yours." },
+        { num: 55, name: "Abundance", seed: "You are standing in the fullness of what you have built and tended and survived. Let yourself feel it completely — not with pride but with genuine gratitude. This moment is real. You are here." },
+        { num: 56, name: "The Wanderer", seed: "You are passing through. Everything you encounter on the road — the kindness of strangers, the harshness of weather, the unexpected beauty — is teaching you something you could not have learned any other way." }
+      ],
+      samhain: [
+        { num: 57, name: "The Gentle", seed: "The wind does not break the tree — it moves through it, bending what is flexible, revealing what is not. Lasting change rarely announces itself. It arrives quietly and works from the inside out." },
+        { num: 58, name: "The Joyous", seed: "Joy is not the absence of difficulty. It is what remains when you stop requiring things to be different from what they are. Find one true thing to be glad of today. Begin there." },
+        { num: 59, name: "Dispersion", seed: "What has been frozen in you is ready to thaw. Let it. The river does not mourn the ice — it simply becomes itself again, moving, finding its level, returning to the sea." },
+        { num: 60, name: "Limitation", seed: "Boundaries are not the opposite of freedom — they are its architecture. The banks give the river its power. What healthy limits might actually be setting something in you free?" },
+        { num: 61, name: "Inner Truth", seed: "You already know. Underneath the noise of opinion and doubt and the voices that are not yours — you already know. The question is whether you are ready to trust what you know." },
+        { num: 62, name: "Preponderance of the Small", seed: "This is not the moment for the grand gesture. This is the moment for the small, careful, unglamorous thing done with full attention. The pilgrim who tends their blisters at the end of every day walks further than the one who does not." },
+        { num: 63, name: "After Completion", seed: "You have arrived somewhere real. Acknowledge it fully — without immediately pivoting to what comes next. The habit of forward motion is useful, but not at the expense of knowing where you stand. You have done something. It counts." },
+        { num: 64, name: "Before Completion", seed: "The final hexagram is not an ending — it is a threshold. The fire burns, the water rises, and the great work continues. You are always, at every moment of your life, standing before something new. The path does not run out. It simply turns, and you cannot yet see what is around the corner. Walk on." }
+      ]
+    };
+
+    function getCurrentFestival() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const festivals = [
+        { key: 'yule',    name: 'Yule',      start: new Date(y-1, 11, 21) },
+        { key: 'imbolc',  name: 'Imbolc',    start: new Date(y,   1,  1) },
+        { key: 'ostara',  name: 'Ostara',    start: new Date(y,   2, 20) },
+        { key: 'beltane', name: 'Beltane',   start: new Date(y,   4,  1) },
+        { key: 'litha',   name: 'Litha',     start: new Date(y,   5, 21) },
+        { key: 'lammas',  name: 'Lughnasadh',start: new Date(y,   7,  1) },
+        { key: 'mabon',   name: 'Mabon',     start: new Date(y,   8, 22) },
+        { key: 'samhain', name: 'Samhain',   start: new Date(y,  10, 31) },
+        { key: 'yule',    name: 'Yule',      start: new Date(y,  11, 21) }
+      ];
+      let current = festivals[0];
+      for (let i = 0; i < festivals.length; i++) {
+        if (now >= festivals[i].start) current = festivals[i];
+        else break;
+      }
+      const daysSinceFestival = Math.floor((now - current.start) / (1000 * 60 * 60 * 24));
+      const seedIndex = Math.floor(daysSinceFestival / 7) % 8;
+      return { festival: current, seedIndex };
+    }
+
+    function renderNoticeBoard() {
+      const qData = getCurrentQuestion();
+      document.getElementById('weeklyQuestion').textContent = qData.q;
+      document.getElementById('seasonTag').textContent = qData.season + ' · Week ' + qData.weekNum;
+      const { festival, seedIndex } = getCurrentFestival();
+      const seed = ichingSeeds[festival.key][seedIndex];
+      document.getElementById('hexagramNum').textContent = 'Hexagram ' + seed.num + ' — ' + seed.name;
+      document.getElementById('ichingBody').textContent = seed.seed;
+      document.getElementById('festivalTag').textContent = festival.name;
+    }
+
+    async function loadNotice() {
+      try {
+        const { data, error } = await sb.from('noticeboard_posts').select('message, created_at').order('created_at', { ascending: false }).limit(1);
+        if (error || !data || !data.length) return;
+        const post = data[0];
+        document.getElementById('mindBody').innerHTML = '<p class="notice-mind-body">' + escHtml(post.message) + '</p>';
+        document.getElementById('mindTime').textContent = fmtDate(post.created_at);
+      } catch(e) {}
+    }
+
+    function toggleAdmin() { document.getElementById('adminPanel').classList.toggle('open'); }
+
+    async function postNotice() {
+      const pass = document.getElementById('adminPass').value;
+      const msg  = document.getElementById('adminMsg').value.trim();
+      const fb   = document.getElementById('adminFeedback');
+      if (pass !== ADMIN_PASSWORD) { fb.textContent = 'Wrong password.'; return; }
+      if (!msg) { fb.textContent = 'Nothing to post.'; return; }
+      const { error } = await sb.from('noticeboard_posts').insert({ message: msg });
+      if (error) { fb.textContent = 'Error — try again.'; return; }
+      fb.textContent = 'Posted.';
+      document.getElementById('adminMsg').value = '';
+      document.getElementById('adminPass').value = '';
+      setTimeout(() => { document.getElementById('adminPanel').classList.remove('open'); fb.textContent = ''; loadNotice(); }, 1200);
+    }
+
+    const BLOCKED = ['spam','fuck','shit','cunt','nigger','faggot','whore','bastard','asshole','dick','pussy','cock','bitch','viagra','casino','bitcoin','crypto','click here','buy now','free money','make money','mlm','affiliate'];
+    function isFlagged(text) { const lower = text.toLowerCase(); return BLOCKED.some(w => lower.includes(w)); }
+    function isRateLimited() {
+      const key = 'ps_comment_ts'; const last = parseInt(localStorage.getItem(key) || '0'); const now = Date.now();
+      if (now - last < 60000) return true;
+      localStorage.setItem(key, now.toString()); return false;
+    }
+    function fmtDate(iso) {
+      const d = new Date(iso);
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+    }
+    function escHtml(str) { return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+
+    async function submitComment(parentId = null, formEl = null) {
+      const isReply = !!parentId;
+      const nameEl     = isReply ? formEl.querySelector('.reply-name')     : document.getElementById('comment-name');
+      const locationEl = isReply ? formEl.querySelector('.reply-location') : document.getElementById('comment-location');
+      const bodyEl     = isReply ? formEl.querySelector('.reply-body')     : document.getElementById('comment-body');
+      const btn        = isReply ? formEl.querySelector('.btn-submit')     : document.getElementById('submitBtn');
+      const statusEl   = isReply ? formEl.querySelector('.reply-status')   : document.getElementById('formStatus');
+      const name = nameEl.value.trim(); const body = bodyEl.value.trim(); const location = locationEl ? locationEl.value.trim() : '';
+      statusEl.className = 'form-status'; statusEl.textContent = '';
+      if (!name || name.length < 2) { statusEl.textContent = 'Please leave your name.'; statusEl.className = 'form-status error'; return; }
+      if (!body || body.length < 10) { statusEl.textContent = 'Say a little more — ten characters at least.'; statusEl.className = 'form-status error'; return; }
+      if (isRateLimited()) { statusEl.textContent = 'Please wait a moment before leaving another comment.'; statusEl.className = 'form-status error'; return; }
+      if (isFlagged(name) || isFlagged(body)) { statusEl.textContent = 'That comment cannot be submitted. Please keep things kind.'; statusEl.className = 'form-status error'; return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+      const { error } = await sb.from('comments').insert([{ name: name.substring(0,80), body: body.substring(0,1200), location: location.substring(0,100) || null, parent_id: parentId || null, approved: false }]);
+      if (error) { statusEl.textContent = 'Something went wrong. Please try again.'; statusEl.className = 'form-status error'; btn.disabled = false; btn.textContent = isReply ? 'Send reply' : 'Leave a word'; return; }
+      statusEl.textContent = 'Your words have been received. They will appear here once read — usually within a day or two. Thank you for passing through.';
+      statusEl.className = 'form-status success';
+      nameEl.value = ''; bodyEl.value = ''; if (locationEl) locationEl.value = '';
+      btn.disabled = false; btn.textContent = isReply ? 'Send reply' : 'Leave a word';
+      if (isReply) { setTimeout(() => { formEl.classList.remove('open'); statusEl.textContent = ''; }, 3000); }
+    }
+
+    function toggleReply(id) { const el = document.getElementById(id); if (el) el.classList.toggle('open'); }
+
+    function renderComments(comments) {
+      const container = document.getElementById('commentsList');
+      const roots = comments.filter(c => !c.parent_id);
+      const replies = comments.filter(c => c.parent_id);
+      if (!roots.length) { container.innerHTML = '<p class="comments-empty">The thread is waiting for its first word. Be the first to leave a mark on the path.</p>'; return; }
+      container.innerHTML = roots.map(root => {
+        const rootReplies = replies.filter(r => r.parent_id === root.id);
+        const replyHtml = rootReplies.map(r => `<div class="comment-card is-reply"><div class="comment-meta"><span class="comment-name">${escHtml(r.name)}${r.location ? ' · <span style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:0.85rem;letter-spacing:0;text-transform:none;color:var(--text-muted);">' + escHtml(r.location) + '</span>' : ''}</span><span class="comment-date">${fmtDate(r.created_at)}</span></div><p class="comment-body">${escHtml(r.body)}</p></div>`).join('');
+        return `<div class="comment-thread"><div class="comment-card"><div class="comment-meta"><span class="comment-name">${escHtml(root.name)}${root.location ? ' · <span style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:0.85rem;letter-spacing:0;text-transform:none;color:var(--text-muted);">' + escHtml(root.location) + '</span>' : ''}</span><span class="comment-date">${fmtDate(root.created_at)}</span></div><p class="comment-body">${escHtml(root.body)}</p><button class="reply-btn" onclick="toggleReply('reply-${root.id}')">Reply</button><div class="reply-form-wrap" id="reply-${root.id}"><div class="form-row"><div class="form-field"><label>Your name</label><input type="text" class="reply-name" placeholder="Your name" maxlength="80"></div><div class="form-field"><label>Where you are (optional)</label><input type="text" class="reply-location" placeholder="A place…" maxlength="100"></div></div><div class="form-field form-full" style="margin-bottom:1rem;"><label>Your reply</label><textarea class="reply-body" placeholder="Your reply…" maxlength="1200" style="min-height:90px;"></textarea></div><div style="display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;"><button class="btn-submit" onclick="submitComment('${root.id}', document.getElementById('reply-${root.id}'))">Send reply</button><button class="reply-cancel" onclick="toggleReply('reply-${root.id}')">Cancel</button></div><div class="reply-status form-status" style="margin-top:0.75rem;"></div></div></div>${replyHtml}</div>`;
+      }).join('');
+    }
+
+    async function loadComments() {
+      const { data, error } = await sb.from('comments').select('*').eq('approved', true).order('created_at', { ascending: true });
+      if (error) { document.getElementById('commentsList').innerHTML = '<p class="comments-empty">The thread is resting. Try again shortly.</p>'; return; }
+      renderComments(data || []);
+    }
+
+    document.getElementById('navToggle').addEventListener('click', () => { document.getElementById('navLinks').classList.toggle('open'); });
+    document.getElementById('navLinks').querySelectorAll('a').forEach(a => a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+    const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    renderNoticeBoard();
+    loadNotice();
+    loadComments();
+  </script>
+</body>
+</html>
