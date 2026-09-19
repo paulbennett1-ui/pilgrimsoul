@@ -304,11 +304,10 @@
     toggle.addEventListener('click', () => links.classList.toggle('open'));
     links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
 
+    // Videos now open on YouTube in a new tab. YouTube's embedded player was showing a
+    // sign-in wall, so the pop-up player below is kept dormant in case that changes.
     function openModal(videoId) {
-      document.getElementById('modalFrame').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
-      document.getElementById('modalYt').href = 'https://www.youtube.com/watch?v=' + videoId;
-      document.getElementById('videoModal').classList.add('open');
-      document.body.style.overflow = 'hidden';
+      window.open('https://www.youtube.com/watch?v=' + videoId, '_blank', 'noopener');
     }
     function closeModal() {
       document.getElementById('modalFrame').src = '';
