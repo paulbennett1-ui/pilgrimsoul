@@ -47,6 +47,10 @@
     .video-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--cream); line-height: 1.3; margin-bottom: 0.4rem; }
     .video-meta { font-family: 'Lato', sans-serif; font-weight: 300; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; }
 
+    .video-grid.single { grid-template-columns: minmax(300px, 600px); justify-content: center; }
+    .road-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; max-width: 520px; margin: 2rem auto 1rem; text-align: center; }
+    .road-tag { display: block; text-align: center; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.6; }
+
     .gems-empty { background: var(--dark-mid); border: 1px solid rgba(201,168,76,0.15); padding: 4rem 2rem; text-align: center; position: relative; overflow: hidden; }
     .gems-empty::before { content: '✦'; position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); font-size: 1.2rem; color: var(--gold); opacity: 0.4; }
     .gems-empty p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.1rem; color: var(--text-muted); line-height: 1.75; max-width: 500px; margin: 0 auto 1.5rem; }
@@ -163,16 +167,32 @@
     </div>
   </section>
 
-  <section class="sessions-section">
+  <section class="sessions-section" id="on-the-road">
     <div class="container">
       <div class="section-header">
         <span class="section-label">On the Road</span>
         <h2 class="section-title">The journey itself</h2>
         <p class="section-desc">Drone footage, sacred site visits, interviews, small dispatches from the field. The landscape as much as the music. The road as teacher.</p>
       </div>
-      <div class="coming-placeholder">
-        <p>Footage from the expedition — megaliths, ancient paths, wild camps, chance encounters, the particular quality of light on a November moor.</p>
-        <span class="placeholder-tag">Coming from the expedition</span>
+      <div class="video-grid single">
+        <div class="video-card">
+          <div class="video-thumb" onclick="openModal('mBgrUGm89w8')">
+            <img src="https://img.youtube.com/vi/mBgrUGm89w8/maxresdefault.jpg" alt="Crayford — The Battle of 457" onerror="this.src='https://img.youtube.com/vi/mBgrUGm89w8/hqdefault.jpg'">
+            <div class="play-btn"><span><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></span></div>
+          </div>
+          <div class="video-info">
+            <p class="video-title">Crayford — The Battle of 457</p>
+            <p class="video-meta">A Visible Road Film · Music: The Awakening Soul</p>
+          </div>
+        </div>
+      </div>
+      <p class="road-note">Footage from the expedition — megaliths, ancient paths, wild camps, chance encounters, the particular quality of light on a November moor.</p>
+      <span class="road-tag">More coming from the expedition</span>
+      <div class="yt-cta">
+        <a href="https://www.youtube.com/channel/UCVeHffPjinUFYjHiwqv7oUw" target="_blank" rel="noopener" class="yt-link">
+          <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8zM9.8 15.5V8.5l6.3 3.5-6.3 3.5z"/></svg>
+          Follow the road on YouTube
+        </a>
       </div>
     </div>
   </section>
