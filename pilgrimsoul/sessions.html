@@ -68,6 +68,9 @@
     .modal-close:hover { color: var(--gold); }
     .modal-video { position: relative; aspect-ratio: 16/9; background: #000; }
     .modal-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+    .modal-fallback { text-align: center; margin-top: 1.25rem; }
+    .modal-fallback a { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(201,168,76,0.35); padding-bottom: 2px; transition: border-color 0.3s; }
+    .modal-fallback a:hover { border-color: var(--gold); }
 
     footer { background: var(--dark); border-top: 1px solid rgba(201,168,76,0.1); padding: 3.5rem 2rem; }
     .footer-inner { max-width: 1060px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; }
@@ -268,6 +271,7 @@
       <div class="modal-video">
         <iframe id="modalFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
+      <p class="modal-fallback"><a id="modalYt" href="https://www.youtube.com/" target="_blank" rel="noopener">Video not loading? Watch on YouTube ↗</a></p>
     </div>
   </div>
 
@@ -302,6 +306,7 @@
 
     function openModal(videoId) {
       document.getElementById('modalFrame').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1';
+      document.getElementById('modalYt').href = 'https://www.youtube.com/watch?v=' + videoId;
       document.getElementById('videoModal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
